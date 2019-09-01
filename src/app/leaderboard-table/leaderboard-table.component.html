@@ -1,0 +1,51 @@
+<div class="mat-elevation-z8 leaderboard-table">
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- Rank Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <!-- Arith Column -->
+    <ng-container matColumnDef="atRank">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Arithmetic Test Rank</th>
+      <td mat-cell *matCellDef="let row">{{row.atRank}}</td>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="atScore">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Arithmetic Test Score</th>
+      <td mat-cell *matCellDef="let row">{{row.atScore}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ptRank">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Powers Test Rank</th>
+      <td mat-cell *matCellDef="let row">{{row.ptRank}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ptScore">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Powers Test Score</th>
+      <td mat-cell *matCellDef="let row">{{row.ptScore}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nstRank">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Number Sense Test Rank</th>
+      <td mat-cell *matCellDef="let row">{{row.nstRank}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nstScore">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Number Sense Test Score</th>
+      <td mat-cell *matCellDef="let row">{{row.nstScore}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>

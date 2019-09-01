@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-lg-10">
+        <h3>Seconds Left: {{ questionService.secondsLeft }}</h3>
+    </div>
+    <div class="col-lg-2">
+        <h3>Score: {{ questionService.score }}</h3>
+    </div>
+</div>
+<div style="margin-top: 200px"></div>
+<div class="jumbotron" >
+    <div class="text-center">
+        <form #f>
+            <label><font size="6">{{ questionService.question.question }} </font><input #answer (keyup)="answerChanged(f, $event)"></label>
+        </form>
+    </div>
+</div>

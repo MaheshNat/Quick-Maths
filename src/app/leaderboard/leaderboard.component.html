@@ -1,0 +1,10 @@
+<div class="page-header text-center">
+    <h1>Leaderboard</h1>
+</div>
+
+<div class="jumbotron text-center">
+    <p>Below is the Quick Maths overall leaderboard; these are the 300 users with the highest scores in either of the three categories.</p>
+    <p>To sort the leaderboard by a specific column, click on that column's header.</p>
+    <p class="text-danger" *ngIf="!authService.isAuthenticated"><strong>Keep in mind you have to <a routerLink="/auth" >Login / Sign Up</a> in order to submit your scores to the leaderboard.</strong></p>
+</div>
+<app-leaderboard-table></app-leaderboard-table>
