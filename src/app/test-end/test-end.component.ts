@@ -5,6 +5,7 @@ import { interval, Subscription } from 'rxjs';
 import { LeaderboardService } from '../leaderboard/leaderboard.service';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+;
 
 @Component({
   selector: 'app-test-end',
@@ -25,15 +26,44 @@ export class TestEndComponent implements OnInit {
       return;
     this.authService.user.subscribe(
       user => {
-        this.ldbService.submitScore(this.questionService.score, this.questionService.type);
+        if(!user)
+          return;
+        this.username = user.displayName;
+        this.handleScoreSubmission();
       }
     );
+  }
+
+  handleScoreSubmission() {
+    if(+this.questionService.form['duration'].split(' ')[0] !== 120)
+      return;
     this.leaderboardSub = this.getScores().subscribe(
       leaderboard => {
         console.log('scores: ' + leaderboard);
         this.scores = leaderboard;
         for(let score of this.scores)
           console.log(score);
+
+        if(!this.scores) {
+          console.log('leaderboard is empty');
+          this.ldbService.submitScore(this.questionService.score, this.questionService.type);
+          return;
+        }
+        let nameFound = false;
+        for(let score of this.scores) {
+          if(score.name === this.username) {
+            nameFound = true;
+            if(this.questionService.score > score.score) {
+              console.log('better score');
+              this.ldbService.updateScore(this.questionService.type, score.key, { score: this.questionService.score}).catch(err => { console.log(' error updating score: ' + err)});
+              return;
+            }
+          }
+        }
+        if(!nameFound) {
+          console.log('first time taking test');
+          this.ldbService.submitScore(this.questionService.score, this.questionService.type);
+        }
       }
     );
   }

@@ -26,6 +26,8 @@ export class LeaderboardService implements OnInit, OnDestroy {
   getUser() {
     this.userSub = this.authService.user.subscribe(
       user => {
+        if(!user)
+          return;
         this.username = user.displayName;
       }
     );
