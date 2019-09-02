@@ -14,14 +14,17 @@ import { TestEndComponent } from './test-end/test-end.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { CommonModule } from '@angular/common';
-import { LeaderboardTableComponent } from './leaderboard-table/leaderboard-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { LeaderboardComponent } from './leaderboard/leaderboard/leaderboard.component'
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -32,7 +35,7 @@ const routes: Routes = [
   {path: 'test', component: TestComponent},
   {path: 'test-end', component: TestEndComponent},
   {path: 'auth', component: AuthComponent},
-  {path: 'leaderboard', component: LeaderboardComponent},
+  {path: 'leaderboard/:test', component: LeaderboardComponent},
 ];
 
 @NgModule({
@@ -48,7 +51,6 @@ const routes: Routes = [
     AuthComponent,
     LoadingSpinnerComponent,
     LeaderboardComponent,
-    LeaderboardTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,11 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

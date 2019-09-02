@@ -12,18 +12,27 @@
             <li><a routerLink="/number-sense" routerLinkActive="active">Number Sense Test</a></li>
           </ul>
         </li>
-        <li><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
+        <li class="dropdown" (click)="leaderboardDropdown = !leaderboardDropdown" [ngClass]="{open: leaderboardDropdown}">
+            <a style="cursor: pointer;" class="dropdown-toggle" role="button">Leaderboards<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/leaderboard/arithmetic" routerLinkActive="active">Arithmetic Test Leaderboard</a></li>
+              <li><a routerLink="/leaderboard/powers" routerLinkActive="active">Powers Test Leaderboard</a></li>
+              <li><a routerLink="/leaderboard/number-sense" routerLinkActive="active">Number Sense Test Leaderboard</a></li>
+            </ul>
+          </li>
         <li><a routerLink="/about" routerLinkActive="active">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" *ngIf="authService.isAuthenticated" (click)="accountDropdown = !accountDropdown" [ngClass]="{open: accountDropdown}">
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button">{{ authService.username }}<span class="caret"></span></a>
+        <li class="dropdown" *ngIf="authService.user | async as user; else authenticate" (click)="accountDropdown = !accountDropdown" [ngClass]="{open: accountDropdown}">
+          <a style="cursor: pointer;" class="dropdown-toggle" role="button">{{ user.displayName }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-              <li><a style="cursor: pointer;" (click)="authService.logout()">Logout</a></li>
+              <li><a style="cursor: pointer;" (click)="authService.signOut()">Logout</a></li>
               <li><a style="cursor: pointer;">View Stats</a></li>
           </ul>
         </li>
-        <li><a routerLink="/auth" *ngIf="!authService.isAuthenticated" routerLinkActive="active">Login / Sign Up</a></li>
+        <ng-template #authenticate>
+          <li><a routerLink="/auth" routerLinkActive="active">Login / Sign Up</a></li>
+        </ng-template>
       </ul>
   </div>
 </nav>
