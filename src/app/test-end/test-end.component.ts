@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../question.service';
-import { Router } from '@angular/router';
-import { interval } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
+import { LeaderboardService } from '../leaderboard/leaderboard.service';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-test-end',
@@ -9,11 +12,50 @@ import { interval } from 'rxjs';
   styleUrls: ['./test-end.component.css']
 })
 export class TestEndComponent implements OnInit {
+  scores: {name: string, score: number, key: string}[];
+  test: string;
+  userSub: Subscription;
+  leaderboardSub: Subscription;
+  username: string;
 
-
-  constructor(private questionService: QuestionService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private questionService: QuestionService, private router: Router, private ldbService: LeaderboardService, private authService: AuthService) { }
 
   ngOnInit() {
+    if(!this.authService.user)
+      return;
+    this.authService.user.subscribe(
+      user => {
+        this.ldbService.submitScore(this.questionService.score, this.questionService.type);
+      }
+    );
+    this.leaderboardSub = this.getScores().subscribe(
+      leaderboard => {
+        console.log('scores: ' + leaderboard);
+        this.scores = leaderboard;
+        for(let score of this.scores)
+          console.log(score);
+      }
+    );
+  }
+
+  getScores() {
+    return this.ldbService.getScores(this.questionService.type).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    )
+  }
+
+  sortScores() {
+    this.scores.sort(
+      (a, b) => {
+        return a.score < b.score ? 1 : -1
+      }
+    )
+    if(this.scores.length > 100)
+      this.scores = this.scores.slice(100, this.scores.length);
   }
 
   onTryAgain() {
@@ -23,7 +65,7 @@ export class TestEndComponent implements OnInit {
     this.questionService.secondsLeft = duration;
     this.questionService.intervalSubscription = interval(1000).subscribe(
         () => {
-            this.questionService.secondsLeft--;
+            this. questionService.secondsLeft--;
         }
     );
     this.questionService.intervalTimer = setTimeout(() => {
@@ -45,5 +87,10 @@ export class TestEndComponent implements OnInit {
         this.router.navigate(['/number-sense']);
         break;
     }
+  }
+
+  onDestroy() {
+    this.userSub.unsubscribe();
+    this.leaderboardSub.unsubscribe();
   }
 }

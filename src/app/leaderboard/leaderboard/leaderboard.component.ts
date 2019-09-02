@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LeaderboardService } from '../leaderboard.service';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class LeaderboardComponent implements OnInit {
   test: string;
-  scores: {name: string, score: number, key: string}[];
+  public leaderboard: {name: string, score: number, key: string}[];
 
   constructor(private route: ActivatedRoute, private ldbService: LeaderboardService, private authService: AuthService) { }
 
@@ -33,18 +33,23 @@ export class LeaderboardComponent implements OnInit {
           ({ key: c.payload.key, ...c.payload.val() })
         )
       )
-    ).subscribe(scores => {
-      for(let score of scores)
-        console.log(score);
-      this.scores = scores;
-      this.scores.sort(
-        (a, b) => {
-          return a.score < b.score ? 1 : -1
-        }
-      )
-      if(this.scores.length > 100)
-        this.scores = this.scores.slice(100, this.scores.length);
+    ).subscribe(leaderboard => {
+      console.log(this.test + ' leaderboard:');
+      for(let score of leaderboard)
+        console.log('name: ' + score.name + ', score: ' + score.score);
+      this.leaderboard = leaderboard;
+      this.sortScores();
     });
+  }
+
+  sortScores() {
+    this.leaderboard.sort(
+      (a, b) => {
+        return a.score < b.score ? 1 : -1
+      }
+    )
+    if(this.leaderboard.length > 100)
+      this.leaderboard = this.leaderboard.slice(100, this.leaderboard.length);
   }
 
 }

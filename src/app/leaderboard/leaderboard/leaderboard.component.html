@@ -24,7 +24,7 @@
                 <th class="text-center">Name</th>
                 <th class="text-center">Score</th>
             </tr>
-            <ng-container *ngFor="let score of scores; let i = index">
+            <ng-container *ngFor="let score of leaderboard; let i = index">
                 <tr>
                     <td>{{ (i + 1) }}</td>
                     <td>{{ score.name.split(' ')[0] }}</td>
