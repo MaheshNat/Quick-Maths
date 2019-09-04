@@ -10,7 +10,9 @@ export class QuestionService implements OnInit, OnDestroy {
     choices: string[] = [];
     secondsLeft: number;
     score = 0;
-    question: {question: string, answer: number};
+    questionsCorrectlyAnswered = 0;
+    questionsMissed = 0;
+    question: {question: string, answer: any};
     intervalSubscription: Subscription;
     intervalTimer;
 
@@ -22,22 +24,33 @@ export class QuestionService implements OnInit, OnDestroy {
         this.form = form.value;
         this.type = type;
         if(this.type === 'arithmetic') {
-            if(this.form.addition === true)
+            if(this.form.addition)
                 this.choices.push('addition');
-            if(this.form.subtraction === true)
+            if(this.form.subtraction)
                 this.choices.push('subtraction');
-            if(this.form.multiplication === true)
+            if(this.form.multiplication)
                 this.choices.push('multiplication');
-            if(this.form.division === true)
+            if(this.form.division)
                 this.choices.push('division');
         }  else if(this.type === 'powers') {
-            if(this.form.squares === true)
+            if(this.form.squares)
                 this.choices.push('squares');
-            if(this.form.cubes === true)
+            if(this.form.cubes)
                 this.choices.push('cubes');
-            if(this.form.powers === true)
+            if(this.form.powers)
                 this.choices.push('powers');
-        }  
+        }  else {
+            if(this.form.section1)
+                this.choices.push('section1');
+            if(this.form.section2)
+                this.choices.push('section2');
+            if(this.form.section3)
+                this.choices.push('section3');
+            if(this.form.section4)
+                this.choices.push('section4');
+            if(this.form.section5)
+                this.choices.push('section5');
+        }
         this.question = this.generateQuestion();
         let duration = +(this.form.duration.split(' ')[0]);
         this.secondsLeft = duration;
@@ -57,7 +70,7 @@ export class QuestionService implements OnInit, OnDestroy {
         return Math.floor(Math.random() * range + min);
     }
 
-    generateQuestion(): {question: string, answer: number} {
+    generateQuestion(): {question: string, answer: any} {
         switch(this.type) {
             case 'arithmetic':
                 return this.generateArithmeticQuestion();
@@ -68,7 +81,7 @@ export class QuestionService implements OnInit, OnDestroy {
         }
     }
 
-    generateArithmeticQuestion(): {question: string, answer: number} {
+    generateArithmeticQuestion(): {question: string, answer: any} {
         let choice = this.choices[this.randomInteger(0, this.choices.length - 1)];
         switch(choice) {
             case 'addition':
@@ -106,7 +119,7 @@ export class QuestionService implements OnInit, OnDestroy {
         return {question: (num1 * num2) + ' / ' + num2 + ' =', answer: num1};
     }
 
-    generatePowersQuestion(): {question: string, answer: number} {
+    generatePowersQuestion(): {question: string, answer: any} {
         let choice = this.choices[this.randomInteger(0, this.choices.length - 1)];
         switch(choice) {
             case 'squares':
@@ -150,13 +163,36 @@ export class QuestionService implements OnInit, OnDestroy {
         } 
     }
 
-    generateNumberSenseQuestion() {
-        return {question: '', answer: 0};
+    generateNumberSenseQuestion(): {question: string, answer: any} {
+        return {question: 'The answer is waffles.', answer: 'waffles'};
     }
 
-    questionAnswered() {
-        this.score += 1;
+
+    questionAnswered(){
         this.question = this.generateQuestion();
+        this.score += 1;
+    }
+
+    calculateScore()  {
+        this.score = this.questionsCorrectlyAnswered * 5  - this.questionsMissed * 4;
+    }
+
+    numberSenseQuestionAnswered() {
+        this.question = this.generateQuestion();
+        this.questionsCorrectlyAnswered++;
+        this.calculateScore();
+    }
+
+    questionMissed() {
+        this.question = this.generateQuestion();
+        this.questionsMissed++;
+        this.calculateScore();
+    }
+
+    skipQuestion() {
+        this.question = this.generateQuestion();
+        this.questionsMissed++;
+        this.calculateScore();
     }
 
     ngOnDestroy() {

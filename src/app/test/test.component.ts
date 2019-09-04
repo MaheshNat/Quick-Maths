@@ -17,9 +17,26 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   answerChanged(f: NgForm, event) {
-    if(+this.answerInput.nativeElement.value === this.questionService.question.answer) {
-      this.questionService.questionAnswered();
-      f.reset();
+    console.log(event);
+    if(this.questionService.type === 'number-sense') {
+      if(event.code === 'Backquote') {
+        this.questionService.skipQuestion();
+        f.reset();
+      }
+      if(event.code === 'Enter') {
+        if(+this.answerInput.nativeElement.value === this.questionService.question.answer || this.answerInput.nativeElement.value === this.questionService.question.answer) {
+          this.questionService.numberSenseQuestionAnswered();
+          f.reset();
+        } else {
+          this.questionService.questionMissed();
+          f.reset();
+        }
+      } 
+    } else {
+      if(+this.answerInput.nativeElement.value === this.questionService.question.answer) {
+        this.questionService.questionAnswered();
+        f.reset();
+      }
     }
   }
 

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-number-sense',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NumberSenseComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('f', {static: true}) numberSenseForm: NgForm;
+
+  constructor(private router: Router, private questionService: QuestionService) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.numberSenseForm.setValue({
+        section1: true,
+        section2: true,
+        section3: true,
+        section4: true,
+        section5: true,
+        duration: '600 seconds'
+      });
+    }, );
+  }
+
+  onSubmit(form: NgForm) {
+    this.questionService.onSubmitForm(form, 'number-sense');
+    this.router.navigate(['/test']);
   }
 
 }
