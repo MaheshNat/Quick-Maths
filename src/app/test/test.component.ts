@@ -43,5 +43,6 @@ export class TestComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.questionService.intervalSubscription.unsubscribe();
     clearTimeout(this.questionService.intervalTimer);
+    this.questionService.score = 0;
   }
 }
