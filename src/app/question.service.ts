@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject, Subscription, interval, BehaviorSubject } from 'rxjs';
 import { stringify } from '@angular/compiler/src/util';
+import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 export class QuestionService implements OnInit, OnDestroy {
@@ -16,7 +17,6 @@ export class QuestionService implements OnInit, OnDestroy {
     question: {question: string, answer: any};
     intervalSubscription: Subscription;
     intervalTimer;
-    section1 = ['multiplicationTrick', 'fraction', 'remainder', 'conversion'];
 
     constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -185,23 +185,15 @@ export class QuestionService implements OnInit, OnDestroy {
     }
 
     generateSection1Question() {
-        let choice = this.section1[this.randomInteger(0, this.section1.length)];
-        switch(choice) {
-            case 'multiplicationTrick':
-                return this.generateMultiplicationTrickQuestion();
-            case 'fraction':
-                return this.generateFractionQuestion();
-            case 'remainder':
-                return this.generateRemainderQuestion();
-            case 'conversion':
-                return this.generateConversionQuestion();
-        }
-    }
-
-    generateMultiplicationTrickQuestion() {
-        let choice = this.randomInteger(0, 11);
+        let choice = this.randomInteger(0, 29)
         let num = this.randomInteger(20, 1000);
+        let num1, num2, num3 = 0;
+        let nums = [];
+        let divisors = n=>[...Array(n+1).keys()].slice(1)
+        .reduce((s, a)=>s+(!(n % a) && a), 0);
         switch(choice) {
+
+            //multiplication tricks
             case 0:
                 return { question: `${num} * 11`, answer: num * 11};
             case 1:
@@ -211,92 +203,159 @@ export class QuestionService implements OnInit, OnDestroy {
             case 3:
                 return { question: `${num} * 75`, answer: num * 75};
             case 4:
-                let num1 = this.randomInteger(20, 99);
-                let num2 = this.randomInteger(20, 99);
+                num1 = this.randomInteger(20, 99);
+                num2 = this.randomInteger(20, 99);
                 return { question: `${num1} * ${num2}`, answer: num1 * num2};
             case 5:
-                return this.generateNear100Question();
+                num = this.randomInteger(3, 12);
+                return {question: `${num * 10 + 5} ^ 2`, answer: (num * 10 + 5)^2};
             case 6:
-                let num3 = this.randomInteger(3, 12);
-                return {question: `${num3 * 10 + 5} ^ 2`, answer: (num3 * 10 + 5)^2};
+                num = this.randomInteger(0, 10);
+                num1 = this.randomInteger(20, 50);
+                return {question: `${num1 - num} * ${num1 + num}`, answer: (num1 - num) * (num1 + num)};
             case 7:
-                let num4 = this.randomInteger(0, 10);
-                let num5 = this.randomInteger(20, 50);
-                return {question: `${num5 - num4} * ${num5 + num4}`, answer: (num5 - num4) * (num5 + num4)};
+                num = this.randomInteger(11, 80);
+                let reverse = parseInt('' + stringify(num)[1] + parseInt(stringify(num)[0]));
+                return {question: `${num} * ${reverse}`, answer: num * reverse};
             case 8:
-                let num6 = this.randomInteger(11, 80);
-                let reverse = parseInt('' + stringify(num6)[1] + parseInt(stringify(num6)[0]));
-                return {question: `${num6} * ${reverse}`, answer: num6 * reverse};
+                num = this.randomInteger(11, 80);
+                return {question: `${num}^2 + ${num + 1}^2`, answer: num^2 + (num + 1)^2};
             case 9:
-                let num7 = this.randomInteger(11, 80);
-                return {question: `${num7}^2 + ${num7 + 1}^2`, answer: num7^2 + (num7 + 1)^2};
+                num = this.randomInteger(100, 1000);
+                num1 = this.randomInteger(100, 1000);
+                num2 = this.randomInteger(100, 1000);
+                return {question: `${num} + ${num1} + ${num2}`, answer: num1 + num2 + num2};
             case 10:
-                let num8 = this.randomInteger(100, 1000);
-                let num9 = this.randomInteger(100, 1000);
-                let num10 = this.randomInteger(100, 1000);
-                return {question: `${num8} + ${num9} + ${num10}`, answer: num8 + num9 + num10};
-        }
-    }
-
-    generateNear100Question() {
-        let choice = this.randomInteger(0, 3);
-        let num1 = this.randomInteger(1, 13);
-        let num2 = this.randomInteger(1, 13);
-        switch(choice) {
-            case 0:
+                num1 = this.randomInteger(1, 13);
+                num2 = this.randomInteger(1, 13);
                 return {question: `${100 - num1} * ${100 - num2}`, answer: (100 - num1) * (100 - num2)};
-            case 1:
+            case 11:
+                num1 = this.randomInteger(1, 13);
+                num2 = this.randomInteger(1, 13);
                 return {question: `${100 + num1} * ${100 + num2}`, answer: (100 + num1) * (100 + num2)};
-            case 2:
+            case 12:
+                num1 = this.randomInteger(1, 13);
+                num2 = this.randomInteger(1, 13);
                 return {question: `${100 + num1} * ${100 - num2}`, answer: (100 + num1) * (100 - num2)};
-        }
-    }
-
-    generateFractionQuestion() {
-        let choice = this.randomInteger(0, 2);
-        switch(choice) {
-            case 0:
+            
+            //fractions
+            case 13:
                 let a = this.randomInteger(17, 40);
                 let b = a + this.randomInteger(2, 5);
                 return {question: `${a} * ${a}/${b}`, answer: `${a + (a - b)} ${(a - b)^2}/${b}`};
-            case 1:
+            case 14:
                 let a1 = this.randomInteger(3, 20);
                 let b1 = this.randomInteger(3, 20);
                 return {question: `${a1}/${b1} + ${b1}/${a1}`, answer: `2 ${(a1 - b1)^2}/${a1*b1}`};
-        }
-    }
-
-    generateRemainderQuestion() {
-        let remainderNums = [3, 4, 8, 9, 11];
-        let num1 = remainderNums[this.randomInteger(0, remainderNums.length)];
-        let num2 = this.randomInteger(300, 100000);
-        return {question: `${num2} % ${num1}`, answer: num2 % num1};
-    }
-
-    generateConversionQuestion() {
-        let choice = this.randomInteger(0, 3);
-        switch(choice) {
-            case 0:
-               return this.generateRomanNumeralQuestion();
-            case 1:
-                return this.generateUnitConversionQuestion();
+            
+            //remainders
+            case 15:
+                let remainderNums = [3, 4, 8, 9, 11];
+                num = remainderNums[this.randomInteger(0, remainderNums.length)];
+                num1 = this.randomInteger(300, 100000);
+                return {question: `${num1} % ${num}`, answer: num1 % num};
                 
-        }
-    }
-
-    generateRomanNumeralQuestion() {
-        let choice = this.randomInteger(0, 3);
-        let num = this.randomInteger(100, 999);
-        let num1 = this.randomInteger(100, 999);
-        switch(choice) {
-            case 0:
+            //conversions
+            //roman numeral <-> arabic numeral
+            case 16:
+                num = this.randomInteger(100, 999);
+                num1 = this.randomInteger(100, 999);
                 return {question: `convert ${num} to a roman numeral`, answer: this.toRoman(num)};
-            case 1:
+            case 17:
+                num = this.randomInteger(100, 999);
+                num1 = this.randomInteger(100, 999);
                 return {question: `convert ${this.toRoman(num)} to an arabic numeral`, answer: num};
-            case 2:
+            case 18:
+                num = this.randomInteger(100, 999);
+                num1 = this.randomInteger(100, 999);
                 return {question: `${num} + ${num1} (roman numeral)`, answer: this.toRoman(num + num1)};
-            case 3:
+            case 19:
+                num = this.randomInteger(100, 999);
+                num1 = this.randomInteger(100, 999);
                 return {question: `${this.toRoman(num)} + ${this.toRoman(num1)} (arabic numeral)`, answer: num + num1};
+
+            // velocity and capacity conversions
+            case 20:
+                num = this.randomInteger(2, 12);
+                return {question: `${num * 15} miles per hour (in minutes per second)`, answer: num * 22};
+            case 21:
+                num = this.randomInteger(2, 12);
+                return {question: `${num * 5} feet per minute (in inches per second)`, answer: num};
+            case 22:
+                num = this.randomInteger(12, 50);
+                return {question: `${num} inches per second (in feet per minute)`, answer: num * 5};
+            case 23:
+                num = this.randomInteger(1, 6);
+                return {question: `${num} gallons (in cubic inches)`, answer: num * 231};
+
+            // mile conversions
+            case 24:
+                return {question: '12.5% of a mile is how many yards', answer: 220};
+            case 25:
+                return {question: '12.5% of a mile is how many feet', answer: 660};
+            case 26:
+                return {question: '25% of a mile is how many feet', answer: 1320};
+            case 27:
+                return {question: '25% of a mile is how many yards', answer: 440};
+            case 28:
+                return {question: '1/3 of a mile is how many feet', answer: 1760};
+
+            //gcd and lcm
+            case 29:
+                num = this.randomInteger(10, 30);
+                num1 = this.randomInteger(1, 10);
+                num2 = this.randomInteger(1, 10);
+                return {question: `The GCF of ${num * num1} and ${num * num2} is`, answer: this.gcd(num * num1, num * num2)};
+            case 30:
+                num = this.randomInteger(10, 30);
+                num1 = this.randomInteger(1, 10);
+                num2 = this.randomInteger(1, 10);
+                num3 = this.randomInteger(1, 10);
+                return {question: `The GCF of ${num * num1}, ${num * num2}, and ${num * num3} is`, answer: this.gcd(this.gcd(num * num1, num * num2), num * num3)};
+            case 31:
+                num = this.randomInteger(10, 30);
+                num1 = this.randomInteger(1, 10);
+                num2 = this.randomInteger(1, 10);
+                return {question: `The LCM of ${num * num1} and ${num * num2} is`, answer: this.lcm(num * num1, num * num2)};
+
+            //fraction <-> decimal <-> percent
+            case 32:
+                num = this.randomInteger(1, 6);
+                return {question: `${num} / 7 (decimal)`, answer: ('' + num / 7).substring(0, 2) + '(' + ('' + num / 7).substring(2, 8) + ')'}
+            case 33:
+                num = this.randomInteger(1, 7);
+                return {question: `${num} / 8 (decimal)`, answer: num / 8}
+            case 34:
+                num = this.randomInteger(1, 5);
+                let answer = num === 1 ? '.1(6)' : (num === 2 ? '.(3)' : (num === 3 ? '.5' : (num === 4 ? '.(6)' : (num === 5 ? '.8(3)' : null))));
+                return {question: `${num} / 6 (decimal)`, answer: answer}
+            
+            //mean, median, and mode
+            case 35:
+                let total = 0;
+                nums = [];
+                for(let i = 0; i < 4; i++) {
+                    nums.push(this.randomInteger(10, 30));
+                    total += nums[i];
+                }
+                return {question: `What is the arithmetic mean of ${nums.toString()}`, answer: total / 4};
+            case 36:
+                let total1 = 0;
+                nums = [];
+                for(let i = 0; i < 5; i++)
+                    nums.push(this.randomInteger(10, 30));
+                return {question: `What is the median of ${total1}`, answer: nums.slice().sort()[3]};
+            
+            //integral divisors
+            case 37:
+                num = this.randomInteger(20, 100);
+                return {question: `The sum of the positive integral divisors of ${num} is`, answer: divisors(num)};
+            case 38:
+                num = this.randomInteger(20, 300);
+                return {question: `${num} has how many positive integral divisors`, answer: this.divisors(num)};
+            case 39:
+                num = this.randomInteger(20, 300);
+                return {question: `${num} has how many prime integral divisors`, answer: this.primeDivisors(num)}
         }
     }
 
@@ -313,52 +372,51 @@ export class QuestionService implements OnInit, OnDestroy {
         return result;
     }
 
-    generateUnitConversionQuestion() {
-        let choice = this.randomInteger(0, 1);
-        switch(choice) {
-            case 0:
-                let num = this.randomInteger(2, 12);
-                return {question: `${num * 15} miles per hour (in minutes per second)`, answer: num * 22};
-            case 1:
-                return this.generateMileConversionQuestion();
-            case 2:
-                let num1 = this.randomInteger(2, 12);
-                return {question: `${num1 * 5} feet per minute (in inches per second)`, answer: num1};
-            case 3:
-                let num2 = this.randomInteger(12, 50);
-                return {question: `${num2} inches per second (in feet per minute)`, answer: num2 * 5};
-            case 4:
-                let num3 = this.randomInteger(1, 6);
-                return {question: `${num3} gallons (in cubic inches)`, answer: num3 * 231};
-            
-        }
+    gcd(a: number, b: number) {
+        if(b === 0)
+            return a;
+        else
+            this.gcd(b, a%b);
     }
 
-    generateMileConversionQuestion() {
-        let choice = this.randomInteger(0, 3);
-        switch(choice) {
-            case 0:
-                return {question: '12.5% of a mile is how many yards', answer: 220};
-            case 1:
-                return {question: '12.5% of a mile is how many feet', answer: 660};
-            case 2:
-                return {question: '25% of a mile is how many feet', answer: 1320};
-            case 3:
-                return {question: '25% of a mile is how many yards', answer: 440};
-            case 2:
-                return {question: '1/3 of a mile is how many feet', answer: 1760};
-            case 3:
+    divisors(n: number) {
+        let divisors = 0;
+        let mod = n;
+        while (mod > 0){
+        if(n % mod === 0){
+            divisors++;
         }
+        mod--;
+        }
+        return divisors;
     }
 
-    gcd(x: number, y: number) {
-        while(y) {
-          let t = y;
-          y = x % y;
-          x = t;
+    primeDivisors(n: number) {
+        let divisors = 0;
+        let mod = n;
+        while (mod > 0){
+        if(n % mod === 0 && this.isPrime(n % mod)){
+            divisors++;
         }
-        return x;
-      }
+        mod--;
+        }
+        return divisors;
+    }
+
+    isPrime(input: number) {
+        let prime = true;
+        for (let i = 2; i <= Math.sqrt(input); i++) {
+            if (input % i == 0) {
+                prime = false;
+                break;
+            }
+        }
+        return prime && (input > 1);
+    }
+
+    lcm(a: number, b: number) {
+        return (a * b) / this.gcd(a, b);
+    }
 
     generateSection2Question() {
         return {question: 'not developed yet.', answer: null};

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuestionService } from '../question.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './test-end.component.html',
   styleUrls: ['./test-end.component.css']
 })
-export class TestEndComponent implements OnInit {
+export class TestEndComponent implements OnInit, OnDestroy {
   scores: {name: string, score: number, key: string}[];
   test: string;
   userSub: Subscription;
@@ -90,6 +90,8 @@ export class TestEndComponent implements OnInit {
 
   onTryAgain() {
     this.questionService.score = 0;
+    this.questionService.questionsCorrectlyAnswered = 0;
+    this.questionService.questionsMissed = 0;
     this.questionService.question = this.questionService.generateQuestion();
     let duration = +(this.questionService.form.duration.split(' ')[0]);
     this.questionService.secondsLeft = duration;
@@ -106,6 +108,8 @@ export class TestEndComponent implements OnInit {
 
   onChangeSettings() {
     this.questionService.score = 0;
+    this.questionService.questionsCorrectlyAnswered = 0;
+    this.questionService.questionsMissed = 0;
     switch(this.questionService.type) {
       case 'arithmetic':
         this.router.navigate(['/arithmetic']);
@@ -119,7 +123,10 @@ export class TestEndComponent implements OnInit {
     }
   }
 
-  onDestroy() {
+  ngOnDestroy() {
+    this.questionService.score = 0;
+    this.questionService.questionsCorrectlyAnswered = 0;
+    this.questionService.questionsMissed = 0;
     this.userSub.unsubscribe();
     this.leaderboardSub.unsubscribe();
   }
