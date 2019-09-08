@@ -2,8 +2,6 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject, Subscription, interval, BehaviorSubject } from 'rxjs';
-import { stringify } from '@angular/compiler/src/util';
-import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 export class QuestionService implements OnInit, OnDestroy {
@@ -185,7 +183,7 @@ export class QuestionService implements OnInit, OnDestroy {
     }
 
     generateSection1Question() {
-        let choice = this.randomInteger(0, 29)
+        let choice = this.randomInteger(0, 40)
         let num = this.randomInteger(20, 1000);
         let num1, num2, num3 = 0;
         let nums = [];
@@ -208,18 +206,19 @@ export class QuestionService implements OnInit, OnDestroy {
                 return { question: `${num1} * ${num2}`, answer: num1 * num2};
             case 5:
                 num = this.randomInteger(3, 12);
-                return {question: `${num * 10 + 5} ^ 2`, answer: (num * 10 + 5)^2};
+                return {question: `${num * 10 + 5} ^ 2`, answer: Math.pow((num * 10 + 5), 2)};
             case 6:
                 num = this.randomInteger(0, 10);
                 num1 = this.randomInteger(20, 50);
                 return {question: `${num1 - num} * ${num1 + num}`, answer: (num1 - num) * (num1 + num)};
             case 7:
                 num = this.randomInteger(11, 80);
-                let reverse = parseInt('' + stringify(num)[1] + parseInt(stringify(num)[0]));
+                let reverse = parseInt('' + num.toString()[1] + num.toString()[0]);
                 return {question: `${num} * ${reverse}`, answer: num * reverse};
             case 8:
                 num = this.randomInteger(11, 80);
-                return {question: `${num}^2 + ${num + 1}^2`, answer: num^2 + (num + 1)^2};
+                //error
+                return {question: `${num}^2 + ${num + 1}^2`, answer: Math.pow(num, 2) + Math.pow((num + 1), 2)};
             case 9:
                 num = this.randomInteger(100, 1000);
                 num1 = this.randomInteger(100, 1000);
@@ -242,11 +241,11 @@ export class QuestionService implements OnInit, OnDestroy {
             case 13:
                 let a = this.randomInteger(17, 40);
                 let b = a + this.randomInteger(2, 5);
-                return {question: `${a} * ${a}/${b}`, answer: `${a + (a - b)} ${(a - b)^2}/${b}`};
+                return {question: `${a} * ${a}/${b}`, answer: `${a + (a - b)} ${Math.pow((a - b), 2)}/${b}`};
             case 14:
                 let a1 = this.randomInteger(3, 20);
                 let b1 = this.randomInteger(3, 20);
-                return {question: `${a1}/${b1} + ${b1}/${a1}`, answer: `2 ${(a1 - b1)^2}/${a1*b1}`};
+                return {question: `${a1}/${b1} + ${b1}/${a1}`, answer: `2 ${Math.pow((a1 - b1), 2)}/${a1*b1}`};
             
             //remainders
             case 15:
@@ -270,8 +269,8 @@ export class QuestionService implements OnInit, OnDestroy {
                 num1 = this.randomInteger(100, 999);
                 return {question: `${num} + ${num1} (roman numeral)`, answer: this.toRoman(num + num1)};
             case 19:
-                num = this.randomInteger(100, 999);
-                num1 = this.randomInteger(100, 999);
+                num = this.randomInteger(20, 200);
+                num1 = this.randomInteger(20, 200);
                 return {question: `${this.toRoman(num)} + ${this.toRoman(num1)} (arabic numeral)`, answer: num + num1};
 
             // velocity and capacity conversions
@@ -376,7 +375,7 @@ export class QuestionService implements OnInit, OnDestroy {
         if(b === 0)
             return a;
         else
-            this.gcd(b, a%b);
+            return this.gcd(b, a%b);
     }
 
     divisors(n: number) {
@@ -419,7 +418,7 @@ export class QuestionService implements OnInit, OnDestroy {
     }
 
     generateSection2Question() {
-        return {question: 'not developed yet.', answer: null};
+        let choice = this.randomInteger(0, 1)
     }
 
     generateSection3Question() {

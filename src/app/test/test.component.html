@@ -12,5 +12,6 @@
         <form #f>
             <label><font size="6">{{ questionService.question.question }} </font><input #answer (keyup)="answerChanged(f, $event)"></label>
         </form>
+        <p>{{ questionService.question.answer }}</p>
     </div>
 </div>
