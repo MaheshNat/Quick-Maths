@@ -418,7 +418,19 @@ export class QuestionService implements OnInit, OnDestroy {
     }
 
     generateSection2Question() {
-        let choice = this.randomInteger(0, 1)
+        let choice = this.randomInteger(0, 1);
+        let num = 0;
+        switch(choice) {
+            //squares and cubes
+            case 0:
+                num = this.randomInteger(11, 50);
+                return {question: `${num}^2`, answer: Math.pow(num, 2)};
+            case 1:
+                num = this.randomInteger(5, 20);
+                return {question: `${num}^3`, answer: Math.pow(num, 3)};
+            
+
+        }
     }
 
     generateSection3Question() {
@@ -450,12 +462,6 @@ export class QuestionService implements OnInit, OnDestroy {
     }
 
     questionMissed() {
-        this.question = this.generateQuestion();
-        this.questionsMissed++;
-        this.calculateScore();
-    }
-
-    skipQuestion() {
         this.question = this.generateQuestion();
         this.questionsMissed++;
         this.calculateScore();
