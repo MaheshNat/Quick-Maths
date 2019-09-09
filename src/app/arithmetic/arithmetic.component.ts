@@ -10,10 +10,12 @@ import { Subject } from 'rxjs';
   styleUrls: ['./arithmetic.component.css']
 })
 export class ArithmeticComponent implements OnInit {
+  @ViewChild('f', { static: true }) arithmeticForm: NgForm;
 
-  @ViewChild('f', {static: true}) arithmeticForm: NgForm;
-
-  constructor(private router: Router, private questionService: QuestionService) { }
+  constructor(
+    private router: Router,
+    private questionService: QuestionService
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -32,12 +34,11 @@ export class ArithmeticComponent implements OnInit {
         subtraction: true,
         duration: '120 seconds'
       });
-    }, );
+    });
   }
 
   onSubmit(form: NgForm) {
     this.questionService.onSubmitForm(form, 'arithmetic');
     this.router.navigate(['/test']);
   }
-
 }

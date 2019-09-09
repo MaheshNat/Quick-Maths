@@ -9,10 +9,12 @@ import { QuestionService } from '../question.service';
   styleUrls: ['./powers.component.css']
 })
 export class PowersComponent implements OnInit {
+  @ViewChild('f', { static: true }) powersForm: NgForm;
 
-  @ViewChild('f', {static: true}) powersForm: NgForm;
-
-  constructor(private router: Router, private questionService: QuestionService) { }
+  constructor(
+    private router: Router,
+    private questionService: QuestionService
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -26,12 +28,11 @@ export class PowersComponent implements OnInit {
         powers: true,
         duration: '120 seconds'
       });
-    }, );
+    });
   }
 
   onSubmit(form: NgForm) {
     this.questionService.onSubmitForm(form, 'powers');
     this.router.navigate(['/test']);
   }
-
 }

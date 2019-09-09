@@ -19,23 +19,26 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LeaderboardComponent } from './leaderboard/leaderboard/leaderboard.component'
+import { LeaderboardComponent } from './leaderboard/leaderboard/leaderboard.component';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreModule
+} from '@angular/fire/firestore';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'arithmetic', component: ArithmeticComponent},
-  {path: 'powers', component: PowersComponent},
-  {path: 'number-sense', component: NumberSenseComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'test', component: TestComponent},
-  {path: 'test-end', component: TestEndComponent},
-  {path: 'auth', component: AuthComponent},
-  {path: 'leaderboard/:test', component: LeaderboardComponent},
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'arithmetic', component: ArithmeticComponent },
+  { path: 'powers', component: PowersComponent },
+  { path: 'number-sense', component: NumberSenseComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'test', component: TestComponent },
+  { path: 'test-end', component: TestEndComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'leaderboard/:test', component: LeaderboardComponent }
 ];
 
 @NgModule({
@@ -50,7 +53,7 @@ const routes: Routes = [
     TestEndComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    LeaderboardComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -70,4 +73,4 @@ const routes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,8 +1,12 @@
 <div style="margin-top: 200px"></div>
 <div class="jumbotron">
-    <div class="text-center">
-        <h2>Score: {{ questionService.score }}</h2>
-        <p><a style="cursor: pointer" (click)="onTryAgain()">Try Again</a> or 
-            <a style="cursor: pointer" (click)="onChangeSettings()">Change Settings</a></p>
-    </div>
+  <div class="text-center">
+    <h2>Score: {{ questionService.score }}</h2>
+    <p>
+      <a style="cursor: pointer" (click)="onTryAgain()">Try Again</a> or
+      <a style="cursor: pointer" (click)="onChangeSettings()"
+        >Change Settings</a
+      >
+    </p>
+  </div>
 </div>

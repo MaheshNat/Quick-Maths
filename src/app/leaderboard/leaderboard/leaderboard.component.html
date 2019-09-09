@@ -1,36 +1,77 @@
 <div class="page-header text-center">
-        <h1>{{ test === 'arithmetic' ? 'Arithmetic' : (test === 'powers' ? 'Powers' : (test === 'number-sense' ? 'Number Sense' : '')) }} Test Leaderboard</h1>
+  <h1>
+    {{
+      test === 'arithmetic'
+        ? 'Arithmetic'
+        : test === 'powers'
+        ? 'Powers'
+        : test === 'number-sense'
+        ? 'Number Sense'
+        : ''
+    }}
+    Test Leaderboard
+  </h1>
 </div>
-    
+
 <div class="jumbotron text-center">
-    <p>Below is the Quick Maths leaderboard for the {{ test === 'arithmetic' ? 'Arithmetic' : (test === 'powers' ? 'Powers' : (test === 'number-sense' ? 'Number Sense' : '')) }} test. these are the 100 users with the highest scores.</p>
-    <p>To sort the leaderboard by a specific column, click on that column's header.</p>
-    <div *ngIf="authService.user | async; else notauth"></div>
-    <ng-template #notauth>
-        <p class="text-danger"><strong>Keep in mind you have to <a routerLink="/auth" >Login / Sign Up</a> in order to submit your scores to the leaderboard.</strong></p>
-    </ng-template>
+  <p>
+    Below is the Quick Maths leaderboard for the
+    {{
+      test === 'arithmetic'
+        ? 'Arithmetic'
+        : test === 'powers'
+        ? 'Powers'
+        : test === 'number-sense'
+        ? 'Number Sense'
+        : ''
+    }}
+    test. these are the 100 users with the highest scores.
+  </p>
+  <p>
+    To sort the leaderboard by a specific column, click on that column's header.
+  </p>
+  <div *ngIf="authService.user | async; else notauth"></div>
+  <ng-template #notauth>
+    <p class="text-danger">
+      <strong
+        >Keep in mind you have to <a routerLink="/auth">Login / Sign Up</a> in
+        order to submit your scores to the leaderboard.</strong
+      >
+    </p>
+  </ng-template>
 </div>
 
 <div class="text-center">
-    <table class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr>
-                <td colspan="4">{{ test === 'arithmetic' ? 'Arithmetic' : (test === 'powers' ? 'Powers' : (test === 'number-sense' ? 'Number Sense' : '')) }} Leaderboard</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th class="text-center">Rank</th>
-                <th class="text-center">Name</th>
-                <th class="text-center">Score</th>
-            </tr>
-            <ng-container *ngFor="let score of leaderboard; let i = index">
-                <tr>
-                    <td>{{ (i + 1) }}</td>
-                    <td>{{ score.name.split(' ')[0] }}</td>
-                    <td>{{ score.score }}</td>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <td colspan="4">
+          {{
+            test === 'arithmetic'
+              ? 'Arithmetic'
+              : test === 'powers'
+              ? 'Powers'
+              : test === 'number-sense'
+              ? 'Number Sense'
+              : ''
+          }}
+          Leaderboard
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="text-center">Rank</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Score</th>
+      </tr>
+      <ng-container *ngFor="let score of leaderboard; let i = index">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ score.name.split(' ')[0] }}</td>
+          <td>{{ score.score }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
 </div>

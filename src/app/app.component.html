@@ -1,39 +1,88 @@
 <nav class="nav navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/" routerLinkOptions="{exact: true}">Quick Maths</a>
+      <a class="navbar-brand" routerLink="/" routerLinkOptions="{exact: true}"
+        >Quick Maths</a
+      >
     </div>
-      <ul class="nav navbar-nav">
-        <li class="dropdown" (click)="testDropdown = !testDropdown" [ngClass]="{open: testDropdown}">
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button">Tests<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/arithmetic" routerLinkActive="active">Arithmetic Test</a></li>
-            <li><a routerLink="/powers" routerLinkActive="active">Powers Test</a></li>
-            <li><a routerLink="/number-sense" routerLinkActive="active">Number Sense Test</a></li>
-          </ul>
-        </li>
-        <li class="dropdown" (click)="leaderboardDropdown = !leaderboardDropdown" [ngClass]="{open: leaderboardDropdown}">
-            <a style="cursor: pointer;" class="dropdown-toggle" role="button">Leaderboards<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="/leaderboard/arithmetic" routerLinkActive="active">Arithmetic Test Leaderboard</a></li>
-              <li><a routerLink="/leaderboard/powers" routerLinkActive="active">Powers Test Leaderboard</a></li>
-              <li><a routerLink="/leaderboard/number-sense" routerLinkActive="active">Number Sense Test Leaderboard</a></li>
-            </ul>
+    <ul class="nav navbar-nav">
+      <li
+        class="dropdown"
+        (click)="testDropdown = !testDropdown"
+        [ngClass]="{ open: testDropdown }"
+      >
+        <a style="cursor: pointer;" class="dropdown-toggle" role="button"
+          >Tests<span class="caret"></span
+        ></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a routerLink="/arithmetic" routerLinkActive="active"
+              >Arithmetic Test</a
+            >
           </li>
-        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" *ngIf="authService.user | async as user; else authenticate" (click)="accountDropdown = !accountDropdown" [ngClass]="{open: accountDropdown}">
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button">{{ user.displayName }}<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li><a style="cursor: pointer;" (click)="authService.signOut()">Logout</a></li>
-              <li><a style="cursor: pointer;">View Stats</a></li>
-          </ul>
+          <li>
+            <a routerLink="/powers" routerLinkActive="active">Powers Test</a>
+          </li>
+          <li>
+            <a routerLink="/number-sense" routerLinkActive="active"
+              >Number Sense Test</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class="dropdown"
+        (click)="leaderboardDropdown = !leaderboardDropdown"
+        [ngClass]="{ open: leaderboardDropdown }"
+      >
+        <a style="cursor: pointer;" class="dropdown-toggle" role="button"
+          >Leaderboards<span class="caret"></span
+        ></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a routerLink="/leaderboard/arithmetic" routerLinkActive="active"
+              >Arithmetic Test Leaderboard</a
+            >
+          </li>
+          <li>
+            <a routerLink="/leaderboard/powers" routerLinkActive="active"
+              >Powers Test Leaderboard</a
+            >
+          </li>
+          <li>
+            <a routerLink="/leaderboard/number-sense" routerLinkActive="active"
+              >Number Sense Test Leaderboard</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li
+        class="dropdown"
+        *ngIf="authService.user | async as user; else authenticate"
+        (click)="accountDropdown = !accountDropdown"
+        [ngClass]="{ open: accountDropdown }"
+      >
+        <a style="cursor: pointer;" class="dropdown-toggle" role="button"
+          >{{ user.displayName }}<span class="caret"></span
+        ></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a style="cursor: pointer;" (click)="authService.signOut()"
+              >Logout</a
+            >
+          </li>
+          <li><a style="cursor: pointer;">View Stats</a></li>
+        </ul>
+      </li>
+      <ng-template #authenticate>
+        <li>
+          <a routerLink="/auth" routerLinkActive="active">Login / Sign Up</a>
         </li>
-        <ng-template #authenticate>
-          <li><a routerLink="/auth" routerLinkActive="active">Login / Sign Up</a></li>
-        </ng-template>
-      </ul>
+      </ng-template>
+    </ul>
   </div>
 </nav>
 

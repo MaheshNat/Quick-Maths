@@ -9,10 +9,12 @@ import { QuestionService } from '../question.service';
   styleUrls: ['./number-sense.component.css']
 })
 export class NumberSenseComponent implements OnInit {
+  @ViewChild('f', { static: true }) numberSenseForm: NgForm;
 
-  @ViewChild('f', {static: true}) numberSenseForm: NgForm;
-
-  constructor(private router: Router, private questionService: QuestionService) { }
+  constructor(
+    private router: Router,
+    private questionService: QuestionService
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
@@ -24,12 +26,11 @@ export class NumberSenseComponent implements OnInit {
         section5: true,
         duration: '600 seconds'
       });
-    }, );
+    });
   }
 
   onSubmit(form: NgForm) {
     this.questionService.onSubmitForm(form, 'number-sense');
     this.router.navigate(['/test']);
   }
-
 }

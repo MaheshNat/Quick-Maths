@@ -1,14 +1,15 @@
 <div class="text-center">
-    <h1>Sign in</h1>
-    <hr>
-    <div *ngIf="auth.user | async as user; else login">
-        <pre>{{ user | json }}</pre>
-        <hr>
-        <button class="btn btn-primary" (click)="auth.signOut()">Sign Out</button>
-    </div>
+  <h1>Sign in</h1>
+  <hr />
+  <div *ngIf="auth.user | async as user; else login">
+    <pre>{{ user | json }}</pre>
+    <hr />
+    <button class="btn btn-primary" (click)="auth.signOut()">Sign Out</button>
+  </div>
 
-    <ng-template #login>
-        <button class="btn-google" (click)="auth.googleSignin()"><span class="fa fa-google"></span> Sign In With Google</button>
-    </ng-template>
+  <ng-template #login>
+    <button class="btn-google" (click)="auth.googleSignin()">
+      <span class="fa fa-google"></span> Sign In With Google
+    </button>
+  </ng-template>
 </div>
-    

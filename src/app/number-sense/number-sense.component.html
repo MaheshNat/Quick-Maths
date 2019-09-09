@@ -1,71 +1,118 @@
 <div class="text-center">
-    <h2>Number Sense Test</h2>
-    <p>
-      The Number Sense Test enables you to practice specific number sense skills, at varying lengths of time in order to prepare you for the real number sense test. 
-    </p>
-    <p>
-        <span class="text-info">To submit your final answer to a question. Hit enter on your keyboard. If you want to skip a question, just hit enter to move on.</span>
-    </p>
-    <p>
-      <span class="text-info">Repeating decimals are represented by parenthesis (), and the repeating elements of a decimal will be enclosed in parenthesis in both questions and answer.
-        Example: .2(35) = .2353535...
-      </span>
-    </p>
-    <p>
-      <span class="text-danger"><strong>Only scores submitted with the default settings (all problems included, 600 seconds) will count towards the Number Sense Leaderboard.</strong></span>
-    </p>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-xs-12">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div class="row">
-          <div class="col">
-            <div class="checkbox">
-              <label><input type="checkbox" id="section1" name="section1" ngModel>Include problems 1-20</label>
-            </div>
-          </div>
-          <hr>
-          <div class="col">
-            <div class="checkbox">
-              <label><input type="checkbox" id="section2" name="section2" ngModel>Include problems 21-40</label>
-            </div>
-          </div>
-          <hr>
-          <div class="col">
-            <div class="checkbox">
-              <label><input type="checkbox" id="section3" name="section3" ngModel>Include problems 41-60</label>
-            </div>
-          </div>
-          <hr>
-          <div class="col">
-            <div class="checkbox">
-              <label><input type="checkbox" id="section4" name="section4" ngModel>Include problems 61-70</label>
-            </div>
-          </div>
-          <hr>
-          <div class="col">
-              <div class="checkbox">
-                <label><input type="checkbox" id="section5" name="section5" ngModel>Include problems 71-80</label>
-              </div>
-          </div>
-          <hr>
-          <div class="col">
-            <p>Duration:</p>
-            <select class="form-control" id="duration" name="duration" ngModel>
-              <option>5 seconds</option>
-              <option>30 seconds</option>
-              <option>60 seconds</option>
-              <option>120 seconds</option>
-              <option>300 seconds</option>
-              <option>600 seconds</option>
-            </select>      
-          </div>
-          <hr>
-          <div class="col">
-              <button class="btn btn-primary" type="submit">Start</button>
+  <h2>Number Sense Test</h2>
+  <p>
+    The Number Sense Test enables you to practice specific number sense skills,
+    at varying lengths of time in order to prepare you for the real number sense
+    test.
+  </p>
+  <p>
+    <span class="text-info"
+      >To submit your final answer to a question. Hit enter on your keyboard. If
+      you want to skip a question, just hit enter to move on.</span
+    >
+  </p>
+  <p>
+    <span class="text-info"
+      >Repeating decimals are represented by parenthesis (), and the repeating
+      elements of a decimal will be enclosed in parenthesis in both questions
+      and answer. Example: .2(35) = .2353535...
+    </span>
+  </p>
+  <p>
+    <span class="text-danger"
+      ><strong
+        >Only scores submitted with the default settings (all problems included,
+        600 seconds) will count towards the Number Sense Leaderboard.</strong
+      ></span
+    >
+  </p>
+</div>
+<hr />
+<div class="row">
+  <div class="col-xs-12">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="checkbox">
+            <label
+              ><input
+                type="checkbox"
+                id="section1"
+                name="section1"
+                ngModel
+              />Include problems 1-20</label
+            >
           </div>
         </div>
-      </form>
-    </div>
+        <hr />
+        <div class="col">
+          <div class="checkbox">
+            <label
+              ><input
+                type="checkbox"
+                id="section2"
+                name="section2"
+                ngModel
+              />Include problems 21-40</label
+            >
+          </div>
+        </div>
+        <hr />
+        <div class="col">
+          <div class="checkbox">
+            <label
+              ><input
+                type="checkbox"
+                id="section3"
+                name="section3"
+                ngModel
+              />Include problems 41-60</label
+            >
+          </div>
+        </div>
+        <hr />
+        <div class="col">
+          <div class="checkbox">
+            <label
+              ><input
+                type="checkbox"
+                id="section4"
+                name="section4"
+                ngModel
+              />Include problems 61-70</label
+            >
+          </div>
+        </div>
+        <hr />
+        <div class="col">
+          <div class="checkbox">
+            <label
+              ><input
+                type="checkbox"
+                id="section5"
+                name="section5"
+                ngModel
+              />Include problems 71-80</label
+            >
+          </div>
+        </div>
+        <hr />
+        <div class="col">
+          <p>Duration:</p>
+          <select class="form-control" id="duration" name="duration" ngModel>
+            <option>5 seconds</option>
+            <option>30 seconds</option>
+            <option>60 seconds</option>
+            <option>120 seconds</option>
+            <option>300 seconds</option>
+            <option>600 seconds</option>
+          </select>
+        </div>
+        <hr />
+        <div class="col">
+          <button class="btn btn-primary" type="submit">Start</button>
+        </div>
+      </div>
+    </form>
   </div>
+</div>

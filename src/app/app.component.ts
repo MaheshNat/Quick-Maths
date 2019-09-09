@@ -8,22 +8,24 @@ import { User } from './auth/user.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-
+export class AppComponent implements OnInit, OnDestroy {
   testDropdown = false;
   accountDropdown = false;
   leaderboardDropdown = false;
   isAuthenticated = false;
   user: User;
+  userSub: Subscription;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.user.subscribe(
-      user => {
-        this.isAuthenticated = !!user;
-        this.user = user;
-      }
-    );  
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+      this.user = user;
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }
