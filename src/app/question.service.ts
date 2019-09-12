@@ -2,6 +2,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject, Subscription, interval, BehaviorSubject } from 'rxjs';
+import { NSSet } from './shared/set.model';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionService implements OnInit, OnDestroy {
@@ -12,7 +13,7 @@ export class QuestionService implements OnInit, OnDestroy {
   score = 0;
   questionsCorrectlyAnswered = 0;
   questionsMissed = 0;
-  question: { question: string; answer: any };
+  question: { question: string; answer: string | number };
   intervalSubscription: Subscription;
   intervalTimer;
 
@@ -131,7 +132,7 @@ export class QuestionService implements OnInit, OnDestroy {
     return { question: num1 * num2 + ' / ' + num2 + ' =', answer: num1 };
   }
 
-  generatePowersQuestion(): { question: string; answer: any } {
+  generatePowersQuestion(): { question: string; answer: string | number } {
     let choice = this.choices[this.randomInteger(0, this.choices.length - 1)];
     switch (choice) {
       case 'squares':
@@ -179,7 +180,7 @@ export class QuestionService implements OnInit, OnDestroy {
     }
   }
 
-  generateNumberSenseQuestion(): { question: string; answer: any } {
+  generateNumberSenseQuestion(): { question: string; answer: string | number } {
     // let choice = this.choices[this.randomInteger(0, this.choices.length)];
     // switch(choice) {
     //     case 'section1':
@@ -548,6 +549,8 @@ export class QuestionService implements OnInit, OnDestroy {
       num1 = 0,
       num2 = 0,
       num3 = 0;
+    let set = new NSSet([]),
+      set1 = new NSSet([]);
     switch (choice) {
       //squares and cubes
       case 0:
@@ -598,7 +601,77 @@ export class QuestionService implements OnInit, OnDestroy {
         return { question: `${Math.pow(num, 3)} ^ (1/3) = `, answer: num };
       //sets
       case 8:
+        set.fill(6, 65, 71);
+        set1.fill(6, 65, 71);
+        return {
+          question: `${set} intersection ${set1} has how many elements?`,
+          answer: set.intersection(set1).length
+        };
+      case 9:
+        set.fill(6, 65, 72);
+        set1.fill(6, 65, 72);
+        return {
+          question: `${set} union ${set1} has how many elements?`,
+          answer: set.union(set1).length
+        };
+      case 10:
+        set.fill(6, 65, 72);
+        set1.fill(6, 65, 69);
+        return {
+          question: `${set} complement ${set1} has how many elements?`,
+          answer: set.complement(set1).length
+        };
+      case 11:
+        set.fill(this.randomInteger(3, 13), 65, 75);
+        return {
+          question: `${set} has how many proper subsets?`,
+          answer: set.subsets(true)
+        };
+      case 12:
+        set.fill(this.randomInteger(3, 13), 65, 75);
+        return {
+          question: `${set} has how many subsets?`,
+          answer: set.subsets(false)
+        };
+      case 13:
+        set.fill(this.randomInteger(10, 20), 65, 75);
+        return {
+          question: `${set} has how many improper subsets?`,
+          answer: 1
+        };
     }
+  }
+
+  // intersection(a, b) {
+  //   let intersection = [];
+  //   for (let elementA of a) {
+  //     for (let elementB of b) {
+  //       if (elementA === elementB) intersection.push(elementA);
+  //     }
+  //   }
+  //   return intersection;
+  // }
+
+  // union(a, b) {
+  //   let union = [];
+  //   a.concat(b);
+  //   for (let elementA of a)
+  //     for (let elementUnion of union) {
+  //       if (elementA !== elementUnion) union.push(elementA);
+  //     }
+  //   return union;
+  // }
+
+  // complement(a, b) {
+  //   let complement = a.slice();
+  //   complement.filter(el => {
+  //     for (let elementB of b) if (el === elementB) return true;
+  //     return false;
+  //   });
+  // }
+
+  subsets(a, proper: boolean) {
+    return proper ? Math.pow(2, a.length) - 1 : Math.pow(2, a.length);
   }
 
   generateSection3Question() {
