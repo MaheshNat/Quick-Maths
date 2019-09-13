@@ -1,5 +1,5 @@
 export class NSSet {
-  constructor(public elements: Array<string>) {}
+  constructor(public elements: string[]) {}
 
   public get length() {
     return this.elements.length;
@@ -11,36 +11,32 @@ export class NSSet {
 
   public fill(length: number, lower: number, upper: number) {
     for (let i = 0; i < length; i++)
-      this.push(String.fromCharCode(NSSet.randomInteger(65, 72)));
+      this.push(String.fromCharCode(NSSet.randomInteger(lower, upper)));
   }
 
   public intersection(set: NSSet): NSSet {
-    let intersection = new NSSet([]);
-    for (let elementA of this.elements) {
-      for (let elementB of set.elements) {
-        if (elementA === elementB) intersection.push(elementA);
-      }
-    }
-    return intersection;
+    return new NSSet(
+      [...this.elements].filter(element => {
+        for (let el of set.elements) if (el === element) return true;
+        return false;
+      })
+    ).removeDuplicates();
   }
 
   public union(set: NSSet): NSSet {
-    let union = new NSSet([]);
-    this.elements.concat(set.elements);
-    for (let elementA of this.elements)
-      for (let elementUnion of union.elements) {
-        if (elementA !== elementUnion) union.push(elementA);
-      }
-    return union;
+    let union = [...this.elements].concat(set.elements);
+    return new NSSet(
+      union.filter((item, index) => union.indexOf(item) === index).slice()
+    );
   }
 
   public complement(set: NSSet): NSSet {
-    let complement = new NSSet(this.elements.slice());
-    complement.elements.filter(el => {
-      for (let elementB of set.elements) if (el === elementB) return true;
-      return false;
-    });
-    return complement;
+    return new NSSet(
+      [...this.elements].filter(element => {
+        for (let el of set.elements) if (el === element) return false;
+        return true;
+      })
+    );
   }
 
   public subsets(proper: boolean) {
@@ -57,4 +53,12 @@ export class NSSet {
   public toString = (): string => {
     return `{${this.elements}}`;
   };
+
+  public removeDuplicates(): NSSet {
+    return new NSSet(
+      [...this.elements].filter(
+        (item, index) => this.elements.indexOf(item) === index
+      )
+    );
+  }
 }

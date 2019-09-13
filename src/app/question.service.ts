@@ -157,26 +157,26 @@ export class QuestionService implements OnInit, OnDestroy {
 
   generatePowersQuestion_() {
     // powers of 3 from 3 to 8, powers of 4 from 3 to 6, powers of 5 from 3 to 5, and powers of 6, 7, 8, and 9 from 3 to 4
-    const num = this.randomInteger(2, 10);
+    const num = this.randomInteger(2, 9);
     let exp = 0;
     switch (num) {
       case 2:
-        exp = this.randomInteger(3, 13);
+        exp = this.randomInteger(3, 12);
         return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
       case 3:
-        exp = this.randomInteger(3, 8);
-        return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
-      case 4:
         exp = this.randomInteger(3, 7);
         return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
-      case 5:
+      case 4:
         exp = this.randomInteger(3, 6);
+        return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
+      case 5:
+        exp = this.randomInteger(3, 5);
         return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
       case 6:
       case 7:
       case 8:
       case 9:
-        exp = this.randomInteger(3, 5);
+        exp = this.randomInteger(3, 4);
         return { question: `${num} ^ ${exp} = `, answer: Math.pow(num, exp) };
     }
   }
@@ -195,20 +195,19 @@ export class QuestionService implements OnInit, OnDestroy {
     //     case 'section5':
     //         return this.generateSection5Question();
     // }
-    return this.generateSection2Question();
+    let choice = this.randomInteger(0, 1);
+    return choice === 0
+      ? this.generateSection1Question()
+      : this.generateSection2Question();
   }
 
   generateSection1Question() {
-    let choice = this.randomInteger(0, 40);
-    let num = this.randomInteger(20, 1000);
+    let choice = this.randomInteger(0, 39);
+    let num = this.randomInteger(20, 999);
     let num1,
       num2,
       num3 = 0;
     let nums = [];
-    let divisors = n =>
-      [...Array(n + 1).keys()]
-        .slice(1)
-        .reduce((s, a) => s + (!(n % a) && a), 0);
     switch (choice) {
       //multiplication tricks
       case 0:
@@ -218,60 +217,61 @@ export class QuestionService implements OnInit, OnDestroy {
       case 2:
         return { question: `${num} * 25 = `, answer: num * 25 };
       case 3:
+        num = 4 * this.randomInteger(5, 249);
         return { question: `${num} * 75 = `, answer: num * 75 };
       case 4:
-        num1 = this.randomInteger(20, 100);
-        num2 = this.randomInteger(20, 100);
+        num1 = this.randomInteger(20, 99);
+        num2 = this.randomInteger(20, 99);
         return { question: `${num1} * ${num2} = `, answer: num1 * num2 };
       case 5:
-        num = this.randomInteger(3, 10);
+        num = this.randomInteger(3, 9);
         return {
           question: `${num * 10 + 5} ^ 2 = `,
           answer: Math.pow(num * 10 + 5, 2)
         };
       case 6:
-        num = this.randomInteger(0, 10);
-        num1 = this.randomInteger(20, 50);
+        num = this.randomInteger(0, 9);
+        num1 = this.randomInteger(20, 49);
         return {
           question: `${num1 - num} * ${num1 + num} = `,
           answer: (num1 - num) * (num1 + num)
         };
       case 7:
-        num = this.randomInteger(11, 80);
+        num = this.randomInteger(11, 79);
         let reverse = parseInt('' + num.toString()[1] + num.toString()[0]);
         return { question: `${num} * ${reverse} = `, answer: num * reverse };
       case 8:
-        num = this.randomInteger(11, 80);
+        num = this.randomInteger(11, 79);
         //error
         return {
           question: `${num} ^ 2 + ${num + 1} ^ 2 = `,
           answer: Math.pow(num, 2) + Math.pow(num + 1, 2)
         };
       case 9:
-        num = this.randomInteger(100, 1000);
-        num1 = this.randomInteger(100, 1000);
-        num2 = this.randomInteger(100, 1000);
+        num = this.randomInteger(100, 999);
+        num1 = this.randomInteger(100, 999);
+        num2 = this.randomInteger(100, 999);
         return {
           question: `${num} + ${num1} + ${num2} = `,
-          answer: num1 + num2 + num2
+          answer: num + num1 + num2
         };
       case 10:
-        num1 = this.randomInteger(1, 13);
-        num2 = this.randomInteger(1, 13);
+        num1 = this.randomInteger(1, 12);
+        num2 = this.randomInteger(1, 12);
         return {
           question: `${100 - num1} * ${100 - num2} = `,
           answer: (100 - num1) * (100 - num2)
         };
       case 11:
-        num1 = this.randomInteger(1, 13);
-        num2 = this.randomInteger(1, 13);
+        num1 = this.randomInteger(1, 12);
+        num2 = this.randomInteger(1, 12);
         return {
           question: `${100 + num1} * ${100 + num2} = `,
           answer: (100 + num1) * (100 + num2)
         };
       case 12:
-        num1 = this.randomInteger(1, 13);
-        num2 = this.randomInteger(1, 13);
+        num1 = this.randomInteger(1, 12);
+        num2 = this.randomInteger(1, 12);
         return {
           question: `${100 + num1} * ${100 - num2} = `,
           answer: (100 + num1) * (100 - num2)
@@ -279,25 +279,31 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //fractions
       case 13:
-        let a = this.randomInteger(17, 40);
+        let a = this.randomInteger(17, 39);
         let b = a + this.randomInteger(2, 5);
         return {
           question: `${a} * ${a}/${b} = (mixed number)`,
-          answer: `${a + (a - b)} ${Math.pow(a - b, 2)}/${b}`
+          answer: new Fraction(true, Math.pow(a - b, 2), b, a + (a - b))
+            .reduce()
+            .toString()
         };
       case 14:
-        let a1 = this.randomInteger(3, 20);
-        let b1 = this.randomInteger(3, 20);
+        let a1 = this.randomInteger(3, 10);
+        let b1;
+        do b1 = this.randomInteger(3, 10);
+        while (a1 === b1);
         return {
           question: `${a1}/${b1} + ${b1}/${a1} = (mixed number)`,
-          answer: `2 ${Math.pow(a1 - b1, 2)}/${a1 * b1}`
+          answer: new Fraction(false, Math.pow(a1 - b1, 2), a1 * b1, 2)
+            .reduce()
+            .toString()
         };
 
       //remainders
       case 15:
         let remainderNums = [3, 4, 8, 9, 11];
         num = remainderNums[this.randomInteger(0, remainderNums.length)];
-        num1 = this.randomInteger(300, 100000);
+        num1 = this.randomInteger(300, 99999);
         return { question: `${num1} % ${num} = `, answer: num1 % num };
 
       //conversions
@@ -324,8 +330,8 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: this.toRoman(num + num1)
         };
       case 19:
-        num = this.randomInteger(20, 200);
-        num1 = this.randomInteger(20, 200);
+        num = this.randomInteger(20, 199);
+        num1 = this.randomInteger(20, 199);
         return {
           question: `${this.toRoman(num)} + ${this.toRoman(
             num1
@@ -335,25 +341,25 @@ export class QuestionService implements OnInit, OnDestroy {
 
       // velocity and capacity conversions
       case 20:
-        num = this.randomInteger(2, 12);
+        num = this.randomInteger(2, 11);
         return {
           question: `${num * 15} miles per hour = (minutes per second)`,
           answer: num * 22
         };
       case 21:
-        num = this.randomInteger(2, 12);
+        num = this.randomInteger(2, 11);
         return {
-          question: `${num * 5} feet per minute = ( inches per second)`,
+          question: `${num * 5} feet per minute = (inches per second)`,
           answer: num
         };
       case 22:
-        num = this.randomInteger(12, 50);
+        num = this.randomInteger(12, 49);
         return {
           question: `${num} inches per second = (feet per minute)`,
           answer: num * 5
         };
       case 23:
-        num = this.randomInteger(1, 6);
+        num = this.randomInteger(1, 5);
         return {
           question: `${num} gallons = (cubic inches)`,
           answer: num * 231
@@ -373,27 +379,27 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //gcd and lcm
       case 29:
-        num = this.randomInteger(10, 30);
-        num1 = this.randomInteger(1, 10);
-        num2 = this.randomInteger(1, 10);
+        num = this.randomInteger(10, 29);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(1, 9);
         return {
           question: `The GCF of ${num * num1} and ${num * num2} = `,
           answer: this.gcd(num * num1, num * num2)
         };
       case 30:
-        num = this.randomInteger(10, 30);
-        num1 = this.randomInteger(1, 10);
-        num2 = this.randomInteger(1, 10);
-        num3 = this.randomInteger(1, 10);
+        num = this.randomInteger(10, 29);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(1, 9);
+        num3 = this.randomInteger(1, 9);
         return {
           question: `The GCF of ${num * num1}, ${num * num2}, and ${num *
             num3} = `,
           answer: this.gcd(this.gcd(num * num1, num * num2), num * num3)
         };
       case 31:
-        num = this.randomInteger(10, 30);
-        num1 = this.randomInteger(1, 10);
-        num2 = this.randomInteger(1, 10);
+        num = this.randomInteger(10, 29);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(1, 9);
         return {
           question: `The LCM of ${num * num1} and ${num * num2} = `,
           answer: this.lcm(num * num1, num * num2)
@@ -445,28 +451,28 @@ export class QuestionService implements OnInit, OnDestroy {
         nums = [];
         for (let i = 0; i < 5; i++) nums.push(this.randomInteger(10, 30));
         return {
-          question: `What is the median of ${nums}?`,
-          answer: nums.slice().sort()[3]
+          question: `What is the median of {${nums}}?`,
+          answer: nums.slice().sort()[2]
         };
 
       //integral divisors
       case 37:
-        num = this.randomInteger(20, 100);
+        num = 2 * this.randomInteger(10, 49);
         return {
           question: `The sum of the positive integral divisors of ${num} = `,
-          answer: divisors(num)
+          answer: this.divisors(num).reduce((a, b) => a + b, 0)
         };
       case 38:
-        num = this.randomInteger(20, 300);
+        num = 2 * this.randomInteger(10, 149);
         return {
           question: `${num} has how many positive integral divisors?`,
-          answer: this.divisors(num)
+          answer: this.divisors(num).length
         };
       case 39:
-        num = this.randomInteger(20, 300);
+        num = this.randomInteger(10, 149);
         return {
           question: `${num} has how many prime integral divisors?`,
-          answer: this.primeDivisors(num)
+          answer: this.primeDivisors(num).length
         };
     }
   }
@@ -504,39 +510,29 @@ export class QuestionService implements OnInit, OnDestroy {
     else return this.gcd(b, a % b);
   }
 
-  divisors(n: number) {
-    let divisors = 0;
-    let mod = n;
-    while (mod > 0) {
-      if (n % mod === 0) {
-        divisors++;
-      }
-      mod--;
-    }
-    return divisors;
+  divisors(num: number): number[] {
+    let nums: number[] = [];
+    for (let i = 0; i < num; i++) if (num % i === 0) nums.push(i);
+    console.log(nums);
+    return nums.concat([num]);
   }
 
-  primeDivisors(n: number) {
-    let divisors = 0;
-    let mod = n;
-    while (mod > 0) {
-      if (n % mod === 0 && this.isPrime(n % mod)) {
-        divisors++;
-      }
-      mod--;
+  primeDivisors(num: number): number[] {
+    let primeFactors: number[] = [];
+    while (num % 2 === 0) {
+      primeFactors.push(2);
+      num /= 2;
     }
-    return divisors;
-  }
 
-  isPrime(input: number) {
-    let prime = true;
-    for (let i = 2; i <= Math.sqrt(input); i++) {
-      if (input % i == 0) {
-        prime = false;
-        break;
+    let sqrtNum = Math.sqrt(num);
+    for (var i = 3; i <= sqrtNum; i++)
+      while (num % i === 0) {
+        primeFactors.push(i);
+        num /= i;
       }
-    }
-    return prime && input > 1;
+
+    if (num > 2) primeFactors.push(num);
+    return primeFactors;
   }
 
   lcm(a: number, b: number) {
@@ -602,34 +598,34 @@ export class QuestionService implements OnInit, OnDestroy {
         return { question: `${Math.pow(num, 3)} ^ (1/3) = `, answer: num };
       //sets
       case 8:
-        set.fill(6, 65, 71);
-        set1.fill(6, 65, 71);
+        set.fill(5, 65, 72);
+        set1.fill(5, 65, 72);
         return {
           question: `${set} intersection ${set1} has how many elements?`,
           answer: set.intersection(set1).length
         };
       case 9:
-        set.fill(6, 65, 72);
-        set1.fill(6, 65, 72);
+        set.fill(5, 65, 72);
+        set1.fill(5, 65, 72);
         return {
           question: `${set} union ${set1} has how many elements?`,
           answer: set.union(set1).length
         };
       case 10:
-        set.fill(6, 65, 72);
-        set1.fill(6, 65, 69);
+        set.fill(5, 65, 72);
+        set1.fill(3, 65, 69);
         return {
           question: `${set} complement ${set1} has how many elements?`,
           answer: set.complement(set1).length
         };
       case 11:
-        set.fill(this.randomInteger(3, 13), 65, 75);
+        set.fill(this.randomInteger(3, 12), 65, 75);
         return {
           question: `${set} has how many proper subsets?`,
           answer: set.subsets(true)
         };
       case 12:
-        set.fill(this.randomInteger(3, 13), 65, 75);
+        set.fill(this.randomInteger(3, 12), 65, 75);
         return {
           question: `${set} has how many subsets?`,
           answer: set.subsets(false)
@@ -641,7 +637,7 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: 1
         };
       case 14:
-        num = this.randomInteger(4, 13);
+        num = this.randomInteger(4, 12);
         return {
           question: `A set with ${Math.pow(
             2,
@@ -650,7 +646,7 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: num
         };
       case 15:
-        num = this.randomInteger(4, 13);
+        num = this.randomInteger(4, 12);
         return {
           question: `A set with ${Math.pow(2, num) -
             1} proper subsets has how many elements?`,
@@ -659,8 +655,8 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //base conversions
       case 16:
-        num = this.randomInteger(20, 2000);
-        num1 = this.randomInteger(2, 10);
+        num = this.randomInteger(20, 1999);
+        num1 = this.randomInteger(2, 9);
         return {
           question: `${this.convertBase(
             num,
@@ -670,22 +666,22 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: num
         };
       case 17:
-        num = this.randomInteger(20, 2000);
-        num1 = this.randomInteger(2, 10);
-        do num2 = this.randomInteger(2, 10);
+        num = this.randomInteger(20, 1999);
+        num1 = this.randomInteger(2, 9);
+        do num2 = this.randomInteger(2, 9);
         while (num1 === num2);
         return {
           question: `${this.convertBase(
             num,
-            num2,
-            num1
-          )} base ${num1} = (base ${num2})`,
-          answer: num
+            10,
+            num2
+          )} base ${num2} = (base ${num1})`,
+          answer: this.convertBase(num, 10, num1)
         };
       case 18:
-        num = this.randomInteger(20, 100);
-        num1 = this.randomInteger(20, 100);
-        num2 = this.randomInteger(2, 10);
+        num = this.randomInteger(20, 99);
+        num1 = this.randomInteger(20, 99);
+        num2 = this.randomInteger(2, 9);
         return {
           question: `${this.convertBase(
             num,
@@ -696,12 +692,12 @@ export class QuestionService implements OnInit, OnDestroy {
             10,
             num2
           )} base ${num2} = (base ${num2})`,
-          answer: this.convertBase(num1 + num2, 10, num)
+          answer: this.convertBase(num1 + num2, 10, num2)
         };
       case 19:
-        num = this.randomInteger(20, 100);
-        num1 = this.randomInteger(20, 100);
-        num2 = this.randomInteger(2, 10);
+        num = this.randomInteger(20, 99);
+        num1 = this.randomInteger(20, 99);
+        num2 = this.randomInteger(2, 9);
         return {
           question: `${this.convertBase(
             num,
@@ -712,23 +708,23 @@ export class QuestionService implements OnInit, OnDestroy {
             10,
             num2
           )} base ${num2} = (base ${num2})`,
-          answer: this.convertBase(num1 - num2, 10, num)
+          answer: this.convertBase(num1 - num2, 10, num2)
         };
       case 20:
-        num = this.randomInteger(10, 30);
-        num1 = this.randomInteger(10, 30);
-        num2 = this.randomInteger(2, 10);
+        num = this.randomInteger(10, 29);
+        num1 = this.randomInteger(10, 29);
+        num2 = this.randomInteger(2, 9);
         return {
           question: `${this.convertBase(
             num,
             10,
             num2
-          )} base ${num2}} * ${this.convertBase(
+          )} base ${num2} * ${this.convertBase(
             num1,
             10,
             num2
           )} base ${num2} = (base ${num2})`,
-          answer: this.convertBase(num1 * num2, 10, num)
+          answer: this.convertBase(num1 * num2, 10, num2)
         };
       case 21:
         let bases = [
@@ -736,8 +732,15 @@ export class QuestionService implements OnInit, OnDestroy {
           { from: 8, to: 2 },
           { from: 9, to: 3 }
         ];
-        num = this.randomInteger(10, 100);
-        let base = bases[this.randomInteger(0, bases.length)];
+        num = this.randomInteger(10, 99);
+        let base = bases[this.randomInteger(0, bases.length - 1)];
+        console.log(
+          `number in base.from: ${this.convertBase(
+            num,
+            10,
+            base.from
+          )}, number in base.to: ${this.convertBase(num, 10, base.to)}`
+        );
         return {
           question: `${this.convertBase(num, 10, base.from)} base ${
             base.from
@@ -745,34 +748,34 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: this.convertBase(num, 10, base.to)
         };
       case 23:
-        num = this.randomInteger(2, 10);
-        num1 = this.randomInteger(1, num + 1);
+        num = this.randomInteger(3, 9);
+        num1 = this.randomInteger(1, num - 2);
         return {
           question: `.(${num1}) base ${num} = (base 10 fraction)`,
           answer: new Fraction(false, num1, num - 1).reduce().toString()
         };
       //repeating decimals to fraction
       case 24:
-        num = this.randomInteger(1, 10);
+        num = this.randomInteger(1, 8);
         return {
           question: `.(${num}) = (fraction)`,
           answer: new Fraction(false, num, 9).reduce().toString()
         };
       case 25:
-        num = this.randomInteger(10, 100);
+        num = this.randomInteger(10, 98);
         return {
           question: `.(${num}) = (fraction)`,
           answer: new Fraction(false, num, 99).reduce().toString()
         };
       case 26:
-        num = this.randomInteger(100, 1000);
+        num = this.randomInteger(100, 998);
         return {
           question: `.(${num}) = (fraction)`,
           answer: new Fraction(false, num, 999).reduce().toString()
         };
       case 27:
-        num = this.randomInteger(1, 10);
-        num1 = this.randomInteger(1, 10);
+        num = this.randomInteger(1, 8);
+        num1 = this.randomInteger(1, 9);
         return {
           question: `.${num}(${num1}) = (fraction)`,
           answer: new Fraction(false, num * 10 + num1 - num, 90)
@@ -780,9 +783,9 @@ export class QuestionService implements OnInit, OnDestroy {
             .toString()
         };
       case 28:
-        num = this.randomInteger(1, 10);
-        num1 = this.randomInteger(1, 10);
-        num2 = this.randomInteger(1, 10);
+        num = this.randomInteger(1, 8);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(1, 9);
         return {
           question: `.${num}(${num1}${num2}) = (fraction)`,
           answer: new Fraction(false, num * 100 + num1 * 10 + num2 - num, 990)
@@ -793,7 +796,7 @@ export class QuestionService implements OnInit, OnDestroy {
       //remainders
       case 29:
         let remainderNums = [3, 4, 8, 9, 11];
-        num = remainderNums[this.randomInteger(0, remainderNums.length)];
+        num = remainderNums[this.randomInteger(0, remainderNums.length - 1)];
         num1 = this.randomInteger(300, 100000);
         return { question: `${num1} % ${num} = `, answer: num1 % num };
 
@@ -804,13 +807,13 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `A circle with area ${Math.pow(
             num,
             2
-          )} * pi has a radius of`,
+          )} * pi has a radius of (whole number / decimal)`,
           answer: num
         };
       case 31:
         num = this.randomInteger(10, 40);
         return {
-          question: `A circle with perimeter ${num} * pi has a radius of`,
+          question: `A circle with perimeter ${num} * pi has a radius of (whole number / decimal)`,
           answer: num / 2
         };
       // case 32:
@@ -821,7 +824,13 @@ export class QuestionService implements OnInit, OnDestroy {
 
   //section 2 helper methods
   convertBase(num: number, fromBase: number, toBase: number): number {
-    return parseInt(num.toString(fromBase), toBase);
+    console.log(
+      `num: ${num}, fromBase: ${fromBase}, toBase: ${toBase}, converted: ${parseInt(
+        num.toString(fromBase),
+        toBase
+      )}`
+    );
+    return parseInt(num.toString(toBase), fromBase);
   }
 
   generateSection3Question() {
