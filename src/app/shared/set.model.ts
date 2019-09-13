@@ -55,6 +55,6 @@ export class NSSet {
   }
 
   public toString = (): string => {
-    return `{${(this.elements + '').substring(1, this.elements.length - 1)}}`;
+    return `{${this.elements}}`;
   };
 }

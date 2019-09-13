@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject, Subscription, interval, BehaviorSubject } from 'rxjs';
 import { NSSet } from './shared/set.model';
+import { Fraction } from './shared/fraction.model';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionService implements OnInit, OnDestroy {
@@ -544,7 +545,7 @@ export class QuestionService implements OnInit, OnDestroy {
 
   //section 2 questions
   generateSection2Question() {
-    let choice = this.randomInteger(0, 8);
+    let choice = this.randomInteger(0, 32);
     let num = 0,
       num1 = 0,
       num2 = 0,
@@ -559,7 +560,7 @@ export class QuestionService implements OnInit, OnDestroy {
       case 1:
         num = this.randomInteger(5, 20);
         return { question: `${num} ^ 3 = `, answer: Math.pow(num, 3) };
-      //additive and multiplicative inverses
+      //inverses
       case 2:
         num = this.randomInteger(100, 10000);
         return {
@@ -571,7 +572,7 @@ export class QuestionService implements OnInit, OnDestroy {
         let denominator = this.randomInteger(100, 500);
         return {
           question: `What is the multiplicative inverse of ${num}/${denominator}?`,
-          answer: `${denominator}/${num}`
+          answer: new Fraction(false, denominator, num).reduce().toString()
         };
       //absolute value
       case 4:
@@ -639,39 +640,188 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `${set} has how many improper subsets?`,
           answer: 1
         };
+      case 14:
+        num = this.randomInteger(4, 13);
+        return {
+          question: `A set with ${Math.pow(
+            2,
+            num
+          )} subsets has how many elements?`,
+          answer: num
+        };
+      case 15:
+        num = this.randomInteger(4, 13);
+        return {
+          question: `A set with ${Math.pow(2, num) -
+            1} proper subsets has how many elements?`,
+          answer: num
+        };
+
+      //base conversions
+      case 16:
+        num = this.randomInteger(20, 2000);
+        num1 = this.randomInteger(2, 10);
+        return {
+          question: `${this.convertBase(
+            num,
+            10,
+            num1
+          )} base ${num1} = (base 10)`,
+          answer: num
+        };
+      case 17:
+        num = this.randomInteger(20, 2000);
+        num1 = this.randomInteger(2, 10);
+        do num2 = this.randomInteger(2, 10);
+        while (num1 === num2);
+        return {
+          question: `${this.convertBase(
+            num,
+            num2,
+            num1
+          )} base ${num1} = (base ${num2})`,
+          answer: num
+        };
+      case 18:
+        num = this.randomInteger(20, 100);
+        num1 = this.randomInteger(20, 100);
+        num2 = this.randomInteger(2, 10);
+        return {
+          question: `${this.convertBase(
+            num,
+            10,
+            num2
+          )} base ${num2} + ${this.convertBase(
+            num1,
+            10,
+            num2
+          )} base ${num2} = (base ${num2})`,
+          answer: this.convertBase(num1 + num2, 10, num)
+        };
+      case 19:
+        num = this.randomInteger(20, 100);
+        num1 = this.randomInteger(20, 100);
+        num2 = this.randomInteger(2, 10);
+        return {
+          question: `${this.convertBase(
+            num,
+            10,
+            num2
+          )} base ${num2} - ${this.convertBase(
+            num1,
+            10,
+            num2
+          )} base ${num2} = (base ${num2})`,
+          answer: this.convertBase(num1 - num2, 10, num)
+        };
+      case 20:
+        num = this.randomInteger(10, 30);
+        num1 = this.randomInteger(10, 30);
+        num2 = this.randomInteger(2, 10);
+        return {
+          question: `${this.convertBase(
+            num,
+            10,
+            num2
+          )} base ${num2}} * ${this.convertBase(
+            num1,
+            10,
+            num2
+          )} base ${num2} = (base ${num2})`,
+          answer: this.convertBase(num1 * num2, 10, num)
+        };
+      case 21:
+        let bases = [
+          { from: 4, to: 2 },
+          { from: 8, to: 2 },
+          { from: 9, to: 3 }
+        ];
+        num = this.randomInteger(10, 100);
+        let base = bases[this.randomInteger(0, bases.length)];
+        return {
+          question: `${this.convertBase(num, 10, base.from)} base ${
+            base.from
+          } = (base ${base.to})`,
+          answer: this.convertBase(num, 10, base.to)
+        };
+      case 23:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(1, num + 1);
+        return {
+          question: `.(${num1}) base ${num} = (base 10 fraction)`,
+          answer: new Fraction(false, num1, num - 1).reduce().toString()
+        };
+      //repeating decimals to fraction
+      case 24:
+        num = this.randomInteger(1, 10);
+        return {
+          question: `.(${num}) = (fraction)`,
+          answer: new Fraction(false, num, 9).reduce().toString()
+        };
+      case 25:
+        num = this.randomInteger(10, 100);
+        return {
+          question: `.(${num}) = (fraction)`,
+          answer: new Fraction(false, num, 99).reduce().toString()
+        };
+      case 26:
+        num = this.randomInteger(100, 1000);
+        return {
+          question: `.(${num}) = (fraction)`,
+          answer: new Fraction(false, num, 999).reduce().toString()
+        };
+      case 27:
+        num = this.randomInteger(1, 10);
+        num1 = this.randomInteger(1, 10);
+        return {
+          question: `.${num}(${num1}) = (fraction)`,
+          answer: new Fraction(false, num * 10 + num1 - num, 90)
+            .reduce()
+            .toString()
+        };
+      case 28:
+        num = this.randomInteger(1, 10);
+        num1 = this.randomInteger(1, 10);
+        num2 = this.randomInteger(1, 10);
+        return {
+          question: `.${num}(${num1}${num2}) = (fraction)`,
+          answer: new Fraction(false, num * 100 + num1 * 10 + num2 - num, 990)
+            .reduce()
+            .toString()
+        };
+
+      //remainders
+      case 29:
+        let remainderNums = [3, 4, 8, 9, 11];
+        num = remainderNums[this.randomInteger(0, remainderNums.length)];
+        num1 = this.randomInteger(300, 100000);
+        return { question: `${num1} % ${num} = `, answer: num1 % num };
+
+      //perimeter and area of polygons and circles
+      case 30:
+        num = this.randomInteger(10, 40);
+        return {
+          question: `A circle with area ${Math.pow(
+            num,
+            2
+          )} * pi has a radius of`,
+          answer: num
+        };
+      case 31:
+        num = this.randomInteger(10, 40);
+        return {
+          question: `A circle with perimeter ${num} * pi has a radius of`,
+          answer: num / 2
+        };
+      // case 32:
+      //   num = this.randomInteger(20, 40);
+      //   num1 = this.randomInteger(20, 40);
     }
   }
 
-  // intersection(a, b) {
-  //   let intersection = [];
-  //   for (let elementA of a) {
-  //     for (let elementB of b) {
-  //       if (elementA === elementB) intersection.push(elementA);
-  //     }
-  //   }
-  //   return intersection;
-  // }
-
-  // union(a, b) {
-  //   let union = [];
-  //   a.concat(b);
-  //   for (let elementA of a)
-  //     for (let elementUnion of union) {
-  //       if (elementA !== elementUnion) union.push(elementA);
-  //     }
-  //   return union;
-  // }
-
-  // complement(a, b) {
-  //   let complement = a.slice();
-  //   complement.filter(el => {
-  //     for (let elementB of b) if (el === elementB) return true;
-  //     return false;
-  //   });
-  // }
-
-  subsets(a, proper: boolean) {
-    return proper ? Math.pow(2, a.length) - 1 : Math.pow(2, a.length);
+  //section 2 helper methods
+  convertBase(num: number, fromBase: number, toBase: number): number {
+    return parseInt(num.toString(fromBase), toBase);
   }
 
   generateSection3Question() {
