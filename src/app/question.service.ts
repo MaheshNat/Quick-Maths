@@ -302,7 +302,7 @@ export class QuestionService implements OnInit, OnDestroy {
       //remainders
       case 15:
         let remainderNums = [3, 4, 8, 9, 11];
-        num = remainderNums[this.randomInteger(0, remainderNums.length)];
+        num = remainderNums[this.randomInteger(0, remainderNums.length - 1)];
         num1 = this.randomInteger(300, 99999);
         return { question: `${num1} % ${num} = `, answer: num1 % num };
 
@@ -541,7 +541,7 @@ export class QuestionService implements OnInit, OnDestroy {
 
   //section 2 questions
   generateSection2Question() {
-    let choice = this.randomInteger(0, 32);
+    let choice = this.randomInteger(0, 40);
     let num = 0,
       num1 = 0,
       num2 = 0,
@@ -816,9 +816,89 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `A circle with perimeter ${num} * pi has a radius of (whole number / decimal)`,
           answer: num / 2
         };
-      // case 32:
-      //   num = this.randomInteger(20, 40);
-      //   num1 = this.randomInteger(20, 40);
+      case 32:
+        num = this.randomInteger(10, 40);
+        num1 = this.randomInteger(10, 40);
+        return {
+          question: `A rectangle with width ${num} and height ${num1} has a perimeter of`,
+          answer: 2 * num + 2 * num1
+        };
+      case 33:
+        num = this.randomInteger(20, 40);
+        num1 = this.randomInteger(20, 40);
+        return {
+          question: `A rectangle with width ${num} and height ${num1} has an area of`,
+          answer: num * num1
+        };
+      case 34:
+        num = this.randomInteger(10, 20);
+        num1 = this.randomInteger(10, 20);
+        num2 = this.randomInteger(2, 10);
+        return {
+          question: `A trapezoid with a base ${num}, another base ${num1}, and height ${num2} has an area of`,
+          answer: ((num + num1) / 2) * num2
+        };
+      case 35:
+        num = this.randomInteger(10, 50);
+        num1 = this.randomInteger(10, 50);
+        return {
+          question: `A rhombus with diagonals ${num} and ${num1} has an area of`,
+          answer: (num * num1) / 2
+        };
+      //sequences
+      case 36:
+        num = this.randomInteger(10, 30);
+        return {
+          question: `1 + 2 + 3 + ... + ${num} = `,
+          answer: (num * (num + 1)) / 2
+        };
+      case 37:
+        do num = this.randomInteger(10, 30);
+        while (num % 2 === 0);
+        return {
+          question: `1 + 3 + 5 + ... + ${num} = `,
+          answer: Math.pow((num + 1) / 2, 2)
+        };
+      case 38:
+        do num = this.randomInteger(10, 30);
+        while (num % 2 === 1);
+        return {
+          question: `2 + 4 + 6 + ... + ${num}`,
+          answer: (num / 2) * (num / 2 + 1)
+        };
+      case 39:
+        num = this.randomInteger(1, 9);
+        num1 = this.randomInteger(1, 9);
+        do num2 = this.randomInteger(1, 9);
+        while (num2 <= num1);
+        return {
+          question: `${num}(1 + ${new Fraction(false, num1, num2)
+            .reduce()
+            .toString()} + ${new Fraction(
+            false,
+            Math.pow(num1, 2),
+            Math.pow(num2, 2)
+          )
+            .reduce()
+            .toString()} + ...) = `,
+          answer: new Fraction(false, num, 1)
+            .divide(
+              new Fraction(false, 1, 1).subtract(
+                new Fraction(false, num1, num2)
+              )
+            )
+            .reduce()
+            .toString()
+        };
+      case 40:
+        num = this.randomInteger(1, 9);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(4, 20);
+        return {
+          question: `${num} + ${num + num1} + ${num + 2 * num1} + ... + ${num +
+            num2 * num1} = `,
+          answer: (num2 / 2) * (2 * num + (num2 - 1) * num1)
+        };
     }
   }
 
