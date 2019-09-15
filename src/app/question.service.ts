@@ -195,11 +195,12 @@ export class QuestionService implements OnInit, OnDestroy {
     //     case 'section5':
     //         return this.generateSection5Question();
     // }
-    // let choice = this.randomInteger(0, 1);
-    // return choice === 0
-    //   ? this.generateSection1Question()
-    //   : this.generateSection2Question();
-    return this.generateSection3Question();
+    let choice = this.randomInteger(0, 2);
+    return choice === 0
+      ? this.generateSection1Question()
+      : choice === 1
+      ? this.generateSection2Question()
+      : this.generateSection3Question();
   }
 
   generateSection1Question() {
@@ -656,7 +657,7 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //base conversions
       case 16:
-        num = this.randomInteger(20, 1999);
+        num = this.randomInteger(20, 500);
         num1 = this.randomInteger(2, 9);
         return {
           question: `${this.convertBase(
@@ -667,7 +668,7 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: num
         };
       case 17:
-        num = this.randomInteger(20, 1999);
+        num = this.randomInteger(20, 500);
         num1 = this.randomInteger(2, 9);
         do num2 = this.randomInteger(2, 9);
         while (num1 === num2);
@@ -755,6 +756,7 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `.(${num1}) base ${num} = (base 10 fraction)`,
           answer: new Fraction(false, num1, num - 1).reduce().toString()
         };
+
       //repeating decimals to fraction
       case 24:
         num = this.randomInteger(1, 8);
@@ -916,12 +918,12 @@ export class QuestionService implements OnInit, OnDestroy {
   }
 
   generateSection3Question() {
-    let choice = this.randomInteger(0, 6);
+    let choice = this.randomInteger(0, 29);
     let num = 0,
       num1 = 0,
       num2 = 0,
       num3 = 0;
-    let powers = [
+    const powers = [
       { num: 2, min: 3, max: 12 },
       { num: 3, min: 3, max: 7 },
       { num: 4, min: 3, max: 6 },
@@ -931,6 +933,19 @@ export class QuestionService implements OnInit, OnDestroy {
       { num: 8, min: 3, max: 4 },
       { num: 9, min: 3, max: 3 }
     ];
+    const shapes = [
+      'triangle',
+      'square',
+      'pentagon',
+      'hexagon',
+      'septagon',
+      'octagon',
+      'nonagon',
+      'decagon'
+    ];
+    const binomial = [1, 1, 2, 9, 96, 2500, 162000];
+    let sides = this.randomInteger(0, shapes.length - 1) + 3;
+    let shape = shapes[sides - 3];
     let power;
     switch (choice) {
       //exponent rules
@@ -1059,13 +1074,240 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `The y coordinate of the midpoint between (${num}, ${num1}) and (${num2}, ${num3}) is`,
           answer: new Fraction(false, num1 + num3, 2).reduce().toString()
         };
+
+      //regular polygons
       case 13:
+        return {
+          question: `A ${shape} has how many diagonals?`,
+          answer: (sides * (sides - 3)) / 2
+        };
+      case 14:
+        return {
+          question: `A regular ${shape} has an exterior angle of`,
+          answer: 360 / sides
+        };
+      case 15:
+        do sides = this.randomInteger(0, shapes.length - 1) + 3;
+        while (sides === 4);
+        shape = shapes[sides - 3];
+        return {
+          question: `A regular ${shape} has an interior angle of`,
+          answer: (180 * (sides - 2)) / sides
+        };
+      case 16:
+        do sides = this.randomInteger(0, shapes.length - 1) + 3;
+        while (sides === 4);
+        shape = shapes[sides - 3];
+        return {
+          question: ` The sum of the interior angles of a regular ${shape} is`,
+          answer: 180 * (sides - 2)
+        };
+      case 17:
+        num = this.randomInteger(1, 10) * 2;
+        return {
+          question: `The sides of an equilateral triangleare ${num}√(3) cm, then its height is`,
+          answer: new Fraction(false, num * 3, 2).reduce().toString()
+        };
+
+      //inequalities
+      case 18:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question:
+            this.randomInteger(0, 1) === 0
+              ? `|${num}x + ${num1}| ≤ ${num2}, what is the greatest value of x?`
+              : `|${num}x + ${num1}| ≥ ${num2}, what is the least value of x?`,
+          answer: new Fraction(false, num2 - num1, num).reduce().toString()
+        };
+      case 19:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question:
+            this.randomInteger(0, 1) === 0
+              ? `|${num}x + ${num1}| ≤ ${num2}, what is the least value of x?`
+              : `|${num}x + ${num1}| ≥ ${num2}, what is the greatest value of x?`,
+          answer: new Fraction(false, -num2 - num1, num).reduce().toString()
+        };
+
+      //variation
+      case 20:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question: `If y varies inversely with x and y equals ${num1} when x equals ${num}, then what is the value of y when x equals ${num2}`,
+          answer: new Fraction(false, num * num1, num2).reduce().toString()
+        };
+      case 21:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question: `If y varies inversely with x and y equals ${num1} when x equals ${num}, then what is the value of x when y equals ${num2}`,
+          answer: new Fraction(false, num * num1, num2).reduce().toString()
+        };
+      case 21:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question: `If y varies directly with x and y equals ${num1} when x equals ${num}, then what is the value of y when x equals ${num2}`,
+          answer: new Fraction(false, num1 * num2, num).reduce().toString()
+        };
+      case 21:
+        num = this.randomInteger(2, 20);
+        num1 = this.randomInteger(2, 20);
+        num2 = this.randomInteger(2, 20);
+        return {
+          question: `If y varies directly with x and y equals ${num1} when x equals ${num}, then what is the value of x when y equals ${num2}`,
+          answer: new Fraction(false, num2 * num, num1).reduce().toString()
+        };
+
+      //sequences
+      case 22:
+        num = this.randomInteger(10, 30);
+        return {
+          question: `1 + 2 + 3 + ... + ${num} = `,
+          answer: (num * (num + 1)) / 2
+        };
+      case 23:
+        do num = this.randomInteger(10, 30);
+        while (num % 2 === 0);
+        return {
+          question: `1 + 3 + 5 + ... + ${num} = `,
+          answer: Math.pow((num + 1) / 2, 2)
+        };
+      case 24:
+        do num = this.randomInteger(10, 30);
+        while (num % 2 === 1);
+        return {
+          question: `2 + 4 + 6 + ... + ${num}`,
+          answer: (num / 2) * (num / 2 + 1)
+        };
+      case 25:
+        num = this.randomInteger(1, 9);
+        num1 = this.randomInteger(1, 9);
+        do num2 = this.randomInteger(1, 9);
+        while (num2 <= num1);
+        return {
+          question: `${num}(1 + ${new Fraction(false, num1, num2)
+            .reduce()
+            .toString()} + ${new Fraction(
+            false,
+            Math.pow(num1, 2),
+            Math.pow(num2, 2)
+          )
+            .reduce()
+            .toString()} + ...) = `,
+          answer: new Fraction(false, num, 1)
+            .divide(
+              new Fraction(false, 1, 1).subtract(
+                new Fraction(false, num1, num2)
+              )
+            )
+            .reduce()
+            .toString()
+        };
+      case 26:
+        num = this.randomInteger(1, 9);
+        num1 = this.randomInteger(1, 9);
+        num2 = this.randomInteger(4, 20);
+        return {
+          question: `${num} + ${num + num1} + ${num + 2 * num1} + ... + ${num +
+            num2 * num1} = `,
+          answer: (num2 / 2) * (2 * num + (num2 - 1) * num1)
+        };
+
+      //complex numbers
+      case 27:
+        num = this.randomInteger(2, 10);
+        return {
+          question: `if (${num} - i) ^ 2 = a + bi, then a + b = `,
+          answer: Math.pow(num, 2) - 1 - 2 * num
+        };
+      case 28:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(2, 10);
+        num2 = this.randomInteger(2, 10);
+        num3 = this.randomInteger(2, 10);
+        return {
+          question: `if (${num} + ${num1})(${num2} + ${num3}) = a + bi, then a + b = `,
+          answer: num * num2 - num1 * num3 + (num1 * num2 + num * num3)
+        };
+      case 29:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(2, 10);
+        return {
+          question: `(${num} + ${num1}i)(${num} - ${num1}i) = `,
+          answer: Math.pow(num, 2) + Math.pow(num1, 2)
+        };
+
+      //combinations and permutations
+      case 30:
+        num = this.randomInteger(3, 9);
+        do num1 = this.randomInteger(2, 9);
+        while (num1 >= num);
+        return {
+          question: `${num}C${num1} = `,
+          answer:
+            this.factorial(num) /
+            (this.factorial(num1) * this.factorial(num - num1))
+        };
+      case 30:
+        num = this.randomInteger(3, 9);
+        do num1 = this.randomInteger(2, 9);
+        while (num1 >= num);
+        return {
+          question: `${num}P${num1} = `,
+          answer: this.factorial(num) / this.factorial(num - num1)
+        };
+
+      //probabiliy / odds
+      case 31:
+        num = this.randomInteger(2, 20);
+        do num1 = this.randomInteger(2, 20);
+        while (num1 <= num);
+        return {
+          question: `The probabiliy of winning is ${num}/${num1}. The odds of losing are (fraction)`,
+          answer: new Fraction(false, num1 - num, num).reduce().toString()
+        };
+      case 32:
+        num = this.randomInteger(2, 20);
+        do num1 = this.randomInteger(2, 20);
+        while (num1 <= num);
+        return {
+          question: `The odds of losing are ${num}/${num1}. The probabiliy of winning is (fraction)`,
+          answer: new Fraction(false, num1, num + num1).reduce().toString()
+        };
+
+      //binomial expansion theorem
+      case 33:
+        num = this.randomInteger(2, 9);
+        do num1 = this.randomInteger(2, 9);
+        while (num + num1 < 2 || num + num2 > 9);
+        num2 = this.randomInteger(
+          powers[num + num1 - 2].min,
+          powers[num + num1 - 2].max
+        );
+        return {
+          question: `The sum of the coefficients in the expansion of (${num}x + ${num1}y) ^ ${num2} is`,
+          answer: Math.pow(num + num1, num2)
+        };
+      case 34:
+        num = this.randomInteger(0, binomial.length);
+        return {
+          question: `The product of the coefficients in the expansion of (x + y) ^ ${num} is`,
+          answer: binomial[num]
+        };
     }
   }
 
-  //section 3 helper methods
-  log(a: number, b: number): number {
-    return Math.log(b) / Math.log(a);
+  factorial(x: number) {
+    return x === 1 ? 1 : x * this.factorial(x - 1);
   }
 
   generateSection4Question() {
