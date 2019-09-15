@@ -195,10 +195,11 @@ export class QuestionService implements OnInit, OnDestroy {
     //     case 'section5':
     //         return this.generateSection5Question();
     // }
-    let choice = this.randomInteger(0, 1);
-    return choice === 0
-      ? this.generateSection1Question()
-      : this.generateSection2Question();
+    // let choice = this.randomInteger(0, 1);
+    // return choice === 0
+    //   ? this.generateSection1Question()
+    //   : this.generateSection2Question();
+    return this.generateSection3Question();
   }
 
   generateSection1Question() {
@@ -371,7 +372,7 @@ export class QuestionService implements OnInit, OnDestroy {
       case 25:
         return { question: '12.5% of a mile = (feet)', answer: 660 };
       case 26:
-        return { question: '25% of a mile = (feet', answer: 1320 };
+        return { question: '25% of a mile = (feet)', answer: 1320 };
       case 27:
         return { question: '25% of a mile = (yards)', answer: 440 };
       case 28:
@@ -845,6 +846,7 @@ export class QuestionService implements OnInit, OnDestroy {
           question: `A rhombus with diagonals ${num} and ${num1} has an area of`,
           answer: (num * num1) / 2
         };
+
       //sequences
       case 36:
         num = this.randomInteger(10, 30);
@@ -914,7 +916,156 @@ export class QuestionService implements OnInit, OnDestroy {
   }
 
   generateSection3Question() {
-    return { question: 'not developed yet.', answer: null };
+    let choice = this.randomInteger(0, 6);
+    let num = 0,
+      num1 = 0,
+      num2 = 0,
+      num3 = 0;
+    let powers = [
+      { num: 2, min: 3, max: 12 },
+      { num: 3, min: 3, max: 7 },
+      { num: 4, min: 3, max: 6 },
+      { num: 5, min: 3, max: 5 },
+      { num: 6, min: 3, max: 4 },
+      { num: 7, min: 3, max: 3 },
+      { num: 8, min: 3, max: 4 },
+      { num: 9, min: 3, max: 3 }
+    ];
+    let power;
+    switch (choice) {
+      //exponent rules
+      case 0:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(10, 40);
+        num2 = this.randomInteger(2, 3);
+        return {
+          question: `${num} ^ x = ${num1}, then ${num} ^ (x + ${num2}) = `,
+          answer: num1 * Math.pow(num, num2)
+        };
+      case 1:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(10, 40);
+        num2 = this.randomInteger(2, 3);
+        return {
+          question: `${num} ^ x = ${num1}, then ${num} ^ (x - ${num2}) = `,
+          answer: new Fraction(false, num1, Math.pow(num, num2))
+            .reduce()
+            .toString()
+        };
+      case 2:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(10, 40);
+        return {
+          question: `${num} ^ x = ${num1}, then ${num} ^ 2x = `,
+          answer: Math.pow(num1, 2)
+        };
+      case 3:
+        num = this.randomInteger(2, 10);
+        num1 = this.randomInteger(5, 20);
+        return {
+          question: `${num} ^ x = ${num1}, then ${num} ^ 3x = `,
+          answer: Math.pow(num1, 3)
+        };
+
+      //log rules
+      case 4:
+        power = powers[this.randomInteger(0, powers.length - 1)];
+        num = this.randomInteger(power.min, power.max);
+        return {
+          question: `log base ${power.num} of ${Math.pow(power.num, num)} = `,
+          answer: num
+        };
+      case 5:
+        power = powers[this.randomInteger(0, powers.length - 1)];
+        num = this.randomInteger(power.min, power.max);
+        let divisors = this.divisors(Math.pow(power.num, num));
+        return {
+          question: `log base ${power.num} of ${
+            divisors[divisors.length - 2]
+          } + log base ${power.num} of ${Math.pow(power.num, num) /
+            divisors[divisors.length - 2]} = `,
+          answer: num
+        };
+      case 6:
+        power = powers[this.randomInteger(0, powers.length - 1)];
+        num = this.randomInteger(power.min, power.max);
+        return {
+          question: `log base x of ${Math.pow(power.num, num)} = ${num}, x = `,
+          answer: power.num
+        };
+      case 7:
+        power = powers[this.randomInteger(0, powers.length - 1)];
+        num = this.randomInteger(power.min, power.max);
+        num1 = this.randomInteger(3, 10);
+        return {
+          question: `log base ${power.num} of ${Math.pow(power.num, num) *
+            num1} - log base ${power.num} of ${num1} = `,
+          answer: num
+        };
+
+      //right triangle
+      case 8:
+        num = this.randomInteger(10, 30);
+        num = num % 2 === 0 ? num + 1 : num;
+        return {
+          question: `The sides of a right triangle are integers. If one leg is ${num} then the other leg is`,
+          answer: Math.floor(Math.pow(num, 2) / 2)
+        };
+      case 9:
+        num = this.randomInteger(2, 12);
+        num1 = this.randomInteger(2, 12);
+        return {
+          question: `An acute triangle has integer sides of ${num}, x, and ${num1}. What is the largest value of x?`,
+          answer: Math.floor(Math.sqrt(Math.pow(num, 2) + Math.pow(num1, 2)))
+        };
+      case 9:
+        num = this.randomInteger(2, 12);
+        num1 = this.randomInteger(2, 12);
+        return {
+          question: `An obtuse triangle has integer sides of ${num}, x, and ${num1}. What is the largest value of x?`,
+          answer: num + num1 - 1
+        };
+
+      //coordinate geometry
+      case 10:
+        num = this.randomInteger(1, 20);
+        num1 = this.randomInteger(1, 20);
+        num2 = this.randomInteger(1, 20);
+        do num3 = this.randomInteger(1, 20);
+        while (num1 === num3);
+        return {
+          question: `The slope between the points (${num}, ${num1}) and (${num2}, ${num3}) is`,
+          answer: new Fraction(false, num2 - num1, num3 - num1)
+            .reduce()
+            .toString()
+        };
+      case 11:
+        num = this.randomInteger(1, 20);
+        num1 = this.randomInteger(1, 20);
+        num2 = this.randomInteger(1, 20);
+        do num3 = this.randomInteger(1, 20);
+        while (num1 === num3);
+        return {
+          question: `The x coordinate of the midpoint between (${num}, ${num1}) and (${num2}, ${num3}) is`,
+          answer: new Fraction(false, num + num2, 2).reduce().toString()
+        };
+      case 12:
+        num = this.randomInteger(1, 20);
+        num1 = this.randomInteger(1, 20);
+        num2 = this.randomInteger(1, 20);
+        do num3 = this.randomInteger(1, 20);
+        while (num1 === num3);
+        return {
+          question: `The y coordinate of the midpoint between (${num}, ${num1}) and (${num2}, ${num3}) is`,
+          answer: new Fraction(false, num1 + num3, 2).reduce().toString()
+        };
+      case 13:
+    }
+  }
+
+  //section 3 helper methods
+  log(a: number, b: number): number {
+    return Math.log(b) / Math.log(a);
   }
 
   generateSection4Question() {

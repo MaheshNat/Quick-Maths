@@ -91,7 +91,11 @@ export class Fraction {
 
   public toString = (): string => {
     return this.isMixedNumber
-      ? `${this.mixed} ${this.numerator}/${this.denominator}`
+      ? this.denominator === 1
+        ? `${this.mixed + this.numerator}`
+        : `${this.mixed} ${this.numerator}/${this.denominator}`
+      : this.denominator === 1
+      ? `${this.numerator}`
       : `${this.numerator}/${this.denominator}`;
   };
 }
