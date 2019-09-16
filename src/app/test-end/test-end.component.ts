@@ -38,7 +38,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
     if (
       +this.questionService.form['duration'].split(' ')[0] !== 120 &&
       (+this.questionService.form['duration'].split(' ')[0] !== 600 ||
-        this.questionService.type !== 'number-sense')
+        this.questionService.test !== 'number-sense')
     )
       return;
     console.log('reached here form data is valid');
@@ -51,7 +51,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
         console.log('leaderboard is empty');
         this.ldbService.submitScore(
           this.questionService.score,
-          this.questionService.type
+          this.questionService.test
         );
         return;
       }
@@ -62,7 +62,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
           if (this.questionService.score > score.score) {
             console.log('better score');
             this.ldbService
-              .updateScore(this.questionService.type, score.key, {
+              .updateScore(this.questionService.test, score.key, {
                 score: this.questionService.score
               })
               .catch(err => {
@@ -76,7 +76,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
         console.log('first time taking test');
         this.ldbService.submitScore(
           this.questionService.score,
-          this.questionService.type
+          this.questionService.test
         );
       }
     });
@@ -84,7 +84,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
 
   getScores() {
     return this.ldbService
-      .getScores(this.questionService.type)
+      .getScores(this.questionService.test)
       .snapshotChanges()
       .pipe(
         map(changes =>
@@ -121,7 +121,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
     this.questionService.score = 0;
     this.questionService.questionsCorrectlyAnswered = 0;
     this.questionService.questionsMissed = 0;
-    switch (this.questionService.type) {
+    switch (this.questionService.test) {
       case 'arithmetic':
         this.router.navigate(['/arithmetic']);
         break;

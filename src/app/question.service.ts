@@ -8,7 +8,7 @@ import { Fraction } from './shared/fraction.model';
 @Injectable({ providedIn: 'root' })
 export class QuestionService implements OnInit, OnDestroy {
   form: any;
-  type: string;
+  test: string;
   choices: string[] = [];
   secondsLeft: number;
   score = 0;
@@ -22,15 +22,15 @@ export class QuestionService implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  onSubmitForm(form: NgForm, type: string) {
+  onSubmitForm(form: NgForm, test: string) {
     this.form = form.value;
-    this.type = type;
-    if (this.type === 'arithmetic') {
+    this.test = test;
+    if (this.test === 'arithmetic') {
       if (this.form.addition) this.choices.push('addition');
       if (this.form.subtraction) this.choices.push('subtraction');
       if (this.form.multiplication) this.choices.push('multiplication');
       if (this.form.division) this.choices.push('division');
-    } else if (this.type === 'powers') {
+    } else if (this.test === 'powers') {
       if (this.form.squares) this.choices.push('squares');
       if (this.form.cubes) this.choices.push('cubes');
       if (this.form.powers) this.choices.push('powers');
@@ -60,7 +60,7 @@ export class QuestionService implements OnInit, OnDestroy {
   }
 
   generateQuestion(): { question: string; answer: any } {
-    switch (this.type) {
+    switch (this.test) {
       case 'arithmetic':
         return this.generateArithmeticQuestion();
       case 'powers':
@@ -920,7 +920,7 @@ export class QuestionService implements OnInit, OnDestroy {
   }
 
   generateSection3Question() {
-    let choice = this.randomInteger(0, 42);
+    let choice = this.randomInteger(0, 45);
     let num = 0,
       num1 = 0,
       num2 = 0,
@@ -954,7 +954,7 @@ export class QuestionService implements OnInit, OnDestroy {
       //exponent rules
       case 0:
         num = this.randomInteger(2, 10);
-        num1 = this.randomInteger(10, 40);
+        num1 = this.randomInteger(10, 20);
         num2 = this.randomInteger(2, 3);
         return {
           question: `${num} ^ x = ${num1}, then ${num} ^ (x + ${num2}) = `,

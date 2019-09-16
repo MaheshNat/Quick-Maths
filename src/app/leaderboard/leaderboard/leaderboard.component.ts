@@ -38,9 +38,6 @@ export class LeaderboardComponent implements OnInit {
         )
       )
       .subscribe(leaderboard => {
-        console.log(this.test + ' leaderboard:');
-        for (let score of leaderboard)
-          console.log('name: ' + score.name + ', score: ' + score.score);
         this.leaderboard = leaderboard;
         this.sortScores();
       });

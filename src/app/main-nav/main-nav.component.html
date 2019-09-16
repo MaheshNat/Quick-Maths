@@ -1,0 +1,108 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [ngClass]="{ hidden: !(isHandset$ | async) }"
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/">Home</a>
+      <a mat-list-item routerLink="/arithmetic">Arithmetic Test</a>
+      <a mat-list-item routerLink="/powers">Powers Test</a>
+      <a mat-list-item routerLink="/number-sense">Number Sense Test</a>
+      <a mat-list-item routerLink="/leaderboard/arithmetic"
+        >Arithmetic Leaderboard</a
+      >
+      <a mat-list-item routerLink="/leaderboard/powers">Powers Leaderboard</a>
+      <a mat-list-item routerLink="/leaderboard/number-sense"
+        >Number Sense Leaderboard</a
+      >
+      <a mat-list-item routerLink="/about">About</a>
+
+      <a
+        *ngIf="authService.user | async as user; else something"
+        mat-list-item
+        (click)="authService.signOut()"
+      >
+        Logout
+      </a>
+
+      <ng-template #something>
+        <a routerLink="/auth" mat-list-item>
+          Sign In
+        </a>
+      </ng-template>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <div *ngIf="(isHandset$ | async) === false">
+        <button mat-button routerLink="/">Quick Maths</button>
+
+        <mat-menu #testMenu="matMenu">
+          <button mat-menu-item routerLink="/arithmetic">
+            Arithmetic Test
+          </button>
+          <button mat-menu-item routerLink="/powers">Powers Test</button>
+          <button mat-menu-item routerLink="/number-sense">
+            Number Sense Test
+          </button>
+        </mat-menu>
+
+        <button mat-button [matMenuTriggerFor]="testMenu">Tests</button>
+
+        <mat-menu #leaderboardMenu="matMenu">
+          <button mat-menu-item routerLink="/leaderboard/arithmetic">
+            Arithmetic Leaderboard
+          </button>
+          <button mat-menu-item routerLink="/leaderboard/powers">
+            Powers Leaderboard
+          </button>
+          <button mat-menu-item routerLink="/leaderboard/number-sense">
+            Number Sense Leaderboard
+          </button>
+        </mat-menu>
+
+        <button mat-button [matMenuTriggerFor]="leaderboardMenu">
+          Leaderboards
+        </button>
+
+        <button mat-button routerLink="/about">About</button>
+
+        <mat-menu #authMenu="matMenu">
+          <button mat-menu-item (click)="authService.signOut()">Logout</button>
+        </mat-menu>
+
+        <span class="spacer"></span>
+
+        <button
+          *ngIf="authService.user | async as user; else something"
+          mat-button
+          [matMenuTriggerFor]="authMenu"
+        >
+          {{ user.displayName }}
+        </button>
+
+        <ng-template #something>
+          <button routerLink="/auth" mat-button>
+            Sign In
+          </button>
+        </ng-template>
+      </div>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

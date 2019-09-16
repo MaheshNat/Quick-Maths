@@ -27,7 +27,7 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   answerChanged(f: NgForm, event) {
-    if (this.questionService.type === 'number-sense') {
+    if (this.questionService.test === 'number-sense') {
       if (event.code === 'Enter') {
         if (
           +this.answerInput.nativeElement.value ===
