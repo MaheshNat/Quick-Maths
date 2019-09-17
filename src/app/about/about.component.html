@@ -1,27 +1,227 @@
-<div class="jumbotron">
+<mat-tab-group>
+  <mat-tab label="Tests">
+    <div class="jumbotron" style="margin-top: 15px;">
+      <h3>Arithmetic</h3>
+      <p>
+        The arithmetic test is, by default, a 2 minute arithmetic test comprised
+        of addition, subtraction, multiplication, and division problems across
+        different ranges of numbers. Users can change the duration and problems
+        they will take on the arithmetic test, but default settings are given to
+        start with. Users will be given a point for each question answered.
+        Users will not be able to skip a question, as the next question is only
+        given once the current question is answered correctly.
+      </p>
+      <h3>Powers</h3>
+      <p>
+        The powers test is, by default, a test comprised of squares from 0 - 40,
+        cubes from 10 - 20, powers of 2 from 4 to 12, powers of 3 from 3 to 8,
+        powers of 4 from 2 to 6, powers of 5 from 2 to 5, and powers of 6, 7, 8,
+        and 9 from 2 to 4. The powers test also has constraints the users can
+        set on the test such as whether to include exponents or cubes, as well
+        as the time alotted to take the test. Similar to the arithmetic test,
+        users will only be rewarded for the problems they answer, and the next
+        question will appear only once the current question is answered
+        correctly. The powers test was inspired by my high school number sense
+        coach Mr. Newton, who prepared a powers test every time our team met.
+      </p>
+      <h3>Number Sense</h3>
+      <p>
+        The number sense test is, by default, a mock of the UIL Number Sense
+        Test, a mental math exam where participants are given 10 minutes to
+        solve 80 mental math problems. The number sense test on quick maths
+        embodies the structure of the real UIL Number Sense Test, by dynamically
+        generating questions from 5 different sections with a total of *insert
+        here* total question types taken directly from the
+        <a
+          href="https://www.uiltexas.org/files/academics/HS_NS_Sequence_Chart_revised_July20161.pdf"
+          >UIL Number Sense Official Sequence</a
+        >. Additionally, the user can toggle which sections they want to have
+        appear on their test, however all sections are enabled by default. The
+        next question of a number sense test will only be given once the user
+        hits enter to submit their response to the current question.
+      </p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Leaderboards">
+    <div class="jumbotron" style="margin-top: 15px;">
+      <h3>Arithmetic</h3>
+      <p>
+        The arithmetic leaderboard shows the scores, from highest to lowest, of
+        users taking the arithmetic test. To have your arithmetic test score
+        valid for submission, the user must be logged in and default settings
+        must be used in order to ensure precision among all rankings.
+      </p>
+      <h3>Powers</h3>
+      <p>
+        The powers leaderboard shows the scores, from highest to lowest, of
+        users taking the powers test. To have your powers test score valid for
+        submission, the user must be logged in and default settings must be used
+        in order to ensure precision among all rankings.
+      </p>
+      <h3>Number Sense</h3>
+      <p>
+        The number sense leaderboard shows the scores, from highest to lowest,
+        of users taking the number sense test. To have your powers test score
+        valid for submission, the user must be logged in and default settings
+        must be used in order to ensure precision among all rankings.
+        Additionally, unlinke the arithmetic and powers tests. While taking the
+        test, repeating decimals are represented by parenthesis (), and the
+        repeating elements of a decimal will be enclosed in parenthesis in both
+        questions and answers. Example: .2(35) = .2353535...
+      </p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Dependencies">
+    <div class="jumbotron" style="margin-top: 15px;">
+      <h3>Firebase</h3>
+      <p>
+        Quick Maths uses firebase's firestore to authenticate users by storing
+        user information and handling logins / signups. The realtime database is
+        used to store the leaderboard information for the arithmetic, powers,
+        and number sense tests. Communication between firebase and angular is
+        carried out through the angularfire library, which provides the tools
+        necessary to easily perform CRUD operations on the realtime database and
+        authenticate users. Additionally, authentication is done through a
+        google account, which again is a service provided by firebase and the
+        angularfire library.
+      </p>
+      <h3>Bootstrap 4</h3>
+      <p>
+        Bootstrap 4 is used to style the front-end of quick maths, mainly to
+        create a response web application suitable for devices of all size.
+      </p>
+      <h3>Angular Material</h3>
+      <p>
+        Angular material is used for its responsive navigation features,
+        providing for a pleasant user experience on smaller devices, tabs,
+        buttons, form controls, and theming.
+      </p>
+      <!-- ADD NGRX ONCE IMPLEMENTED -->
+    </div>
+  </mat-tab>
+  <mat-tab label="Github">
+    <div class="jumbotron" style="margin-top: 15px;">
+      <h3>Code For This Project</h3>
+      <p>
+        You can view the code for this project on its
+        <a href="https://github.com/MaheshNat/Quick-Maths">Github Repository</a
+        >.
+      </p>
+      <h3>Other Projects</h3>
+      <p>
+        In addition to Quick Maths, I have made other angular projects such as a
+        <a href="https://ng-course-recipe-book-15925.firebaseapp.com"
+          >Recipe Book</a
+        >
+        demo application, whose code you can view
+        <a href="https://github.com/MaheshNat/Recipe-Book">here</a>.
+      </p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Resources">
+    <div class="jumbotron" style="margin-top: 15px;">
+      <h3>Bryant Heath's Number Sense Tricks Manual</h3>
+      <p>
+        An excellent resource for learning the tricks tested on the UIL Number
+        Sense Test is
+        <a href="http://bryantheath.com/number-sense-tricks-manual/"
+          >Bryant Heath's Number Sense Manual</a
+        >, which contains 150+ number sense tricks as well as practice problems
+        for each topic listed. He has other resources for UIL Number Sense such
+        as a collection of 100 auto-generated number sense tests, which you can
+        find
+        <a href="http://bryantheath.com/number-sense-practice-tests/">here</a>.
+      </p>
+      <h3>UIL Number Sense Official Sequence</h3>
+      <p>
+        The
+        <a
+          href="https://www.uiltexas.org/files/academics/HS_NS_Sequence_Chart_revised_July20161.pdf"
+          >UIL Number Sense Official Sequence</a
+        >
+        is a pdf containing all the topics tested on the UIL Number Sense test,
+        and in which sections of the test they will appear. I used this resource
+        to write the code necessary to generate all of the number sense question
+        types, and you can use it to study number sense in a more methodical
+        form.
+      </p>
+      <h3>Zetamac</h3>
+      <p>
+        <a href="https://arithmetic.zetamac.com/">Zetamac</a> is a website which
+        I took inspiration from to build Quick Maths. It is a website that lets
+        users take an arithmetic test similar to the one on Quick Maths, however
+        Quick Maths also includes other features such as the powers and number
+        sense tests, leaderboard, and eventually, a system to profile the types
+        of questions users miss most and a snippet of how to solve each of those
+        difficult problems.
+      </p>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<!-- <div class="jumbotron" style="margin-top: 15px;">
   <h2>About</h2>
-  <hr>
-  <p>Quick Maths is a web application using angular 8 that allows users to test their <b>mental math skills</b> through three tests:</p>
+  <hr />
+  <p>
+    Quick Maths is a web application using angular 8 that allows users to test
+    their <b>mental math skills</b> through three tests:
+  </p>
   <ul>
     <li><p>Arithmetic (Addition, Subtraction, Multiplication, Division)</p></li>
-    <li><p>Powers (Squares From 10 - 40, Cubes From 6 to 20, and Exponents From 2 - 20 of Varying Difficulty)</p></li>
+    <li>
+      <p>
+        Powers (Squares From 10 - 40, Cubes From 6 to 20, and Exponents From 2 -
+        20 of Varying Difficulty)
+      </p>
+    </li>
     <li><p>Number Sense (Dynamically Generated Number Sense Questions)</p></li>
   </ul>
-  <hr>
-  <p>Quick Maths was inspired by <a href="https://arithmetic.zetamac.com">Zetamac</a>, a website that allows users to practice their arithmetic skills.
-    This project aims to expand the vision of zetamac, allowing users to also practice powers / exponents as well as UIL number sense through dynamicallly generated questions of varying degree. Furthermore, Quick Maths allows users to practice number sense tests online without having to print out previous years' tests.</p>
+  <hr />
+  <p>
+    Quick Maths was inspired by
+    <a href="https://arithmetic.zetamac.com">Zetamac</a>, a website that allows
+    users to practice their arithmetic skills. This project aims to expand the
+    vision of zetamac, allowing users to also practice powers / exponents as
+    well as UIL number sense through dynamicallly generated questions of varying
+    degree. Furthermore, Quick Maths allows users to practice number sense tests
+    online without having to print out previous years' tests.
+  </p>
   <h2>Features</h2>
-  <hr>
+  <hr />
   <h3>Arithmetic Test</h3>
-  <br>
-  <p>The arithmetic test on Quick Maths allows users to set contraints on the types of arithmetic (+, -, *, /) questions that they will see on their test, as well as the time allotted to take the test. In the time which the users selects, they will have to answer as many randomly generated arithmetic questions as they can, and will be given points for each question answered. Users will not be able to skip a question, and will not be penalized directly for wrong answers.</p>
+  <br />
+  <p>
+    The arithmetic test on Quick Maths allows users to set contraints on the
+    types of arithmetic (+, -, *, /) questions that they will see on their test,
+    as well as the time allotted to take the test. In the time which the users
+    selects, they will have to answer as many randomly generated arithmetic
+    questions as they can, and will be given points for each question answered.
+    Users will not be able to skip a question, and will not be penalized
+    directly for wrong answers.
+  </p>
   <h3>Powers Test</h3>
-  <br>
-  <p>The powers test on Quick Maths lets users practice their squares from 0 - 40, cubes from 10 - 20, powers of 2 from 4 to 12, powers of 3 from 3 to 8, powers of 4 from 2 to 6, powers of 5 from 2 to 5, and powers of 6, 7, 8, and 9 from 2 to 4. The powers test also has constraints the users can set on the test such as whether to include exponents or cubes, as well as the time alotted to take the test. This powers test was inspired by my high school number sense coach Mr. Newton, who prepared a powers test every time our team met.</p>
+  <br />
+  <p>
+    The powers test on Quick Maths lets users practice their squares from 0 -
+    40, cubes from 10 - 20, powers of 2 from 4 to 12, powers of 3 from 3 to 8,
+    powers of 4 from 2 to 6, powers of 5 from 2 to 5, and powers of 6, 7, 8, and
+    9 from 2 to 4. The powers test also has constraints the users can set on the
+    test such as whether to include exponents or cubes, as well as the time
+    alotted to take the test. This powers test was inspired by my high school
+    number sense coach Mr. Newton, who prepared a powers test every time our
+    team met.
+  </p>
   <h3>Number Sense Test</h3>
-  <br>
-  <p>The most useful part of the Quick Maths application is the Number Sense Test. This test will allow users 10 minutes to complete 80 dynamically generated number sense questions, alotting 7.5 seconds for each question. The types of questions generated are taken from Bryant Heath's excellent (and free) <a href="http://bryantheath.com/number-sense-tricks-manual/">UIL Number Sense Tricks Manual</a>, which contains ~150 number sense tips and tricks which encompass 95% or more of the questions you are likely to encounter while taking the UIL Number Sense test.</p>
-</div>
-
-
-
+  <br />
+  <p>
+    The most useful part of the Quick Maths application is the Number Sense
+    Test. This test will allow users 10 minutes to complete 80 dynamically
+    generated number sense questions, alotting 7.5 seconds for each question.
+    The types of questions generated are taken from Bryant Heath's excellent
+    (and free)
+    <a href="http://bryantheath.com/number-sense-tricks-manual/"
+      >UIL Number Sense Tricks Manual</a
+    >, which contains ~150 number sense tips and tricks which encompass 95% or
+    more of the questions you are likely to encounter while taking the UIL
+    Number Sense test.
+  </p>
+</div> -->

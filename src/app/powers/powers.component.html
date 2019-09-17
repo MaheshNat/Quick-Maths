@@ -6,78 +6,85 @@
   </p>
 </div>
 <hr />
-<div class="row">
-  <div class="col-xs-12">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <div class="row">
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="squares"
-                name="squares"
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="row">
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="squares"
+                  name="squares"
+                  ngModel
+                />Squares</label
+              >
+            </div>
+            <p>
+              Range: (<input
+                type="text"
+                id="squaresMin"
+                name="squaresMin"
                 ngModel
-              />Squares</label
-            >
+              />
+              to
+              <input type="text" id="squaresMax" name="squaresMax" ngModel />)^2
+            </p>
           </div>
-          <p>
-            Range: (<input
-              type="text"
-              id="squaresMin"
-              name="squaresMin"
-              ngModel
-            />
-            to
-            <input type="text" id="squaresMax" name="squaresMax" ngModel />)^2
-          </p>
-        </div>
-        <hr />
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="cubes"
-                name="cubes"
+          <hr />
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="cubes"
+                  name="cubes"
+                  ngModel
+                />Cubes</label
+              >
+            </div>
+            <p>
+              Range: (<input
+                type="text"
+                id="cubesMin"
+                name="cubesMin"
                 ngModel
-              />Cubes</label
-            >
+              />
+              to <input type="text" id="cubesMax" name="cubesMax" ngModel />)^3
+            </p>
           </div>
-          <p>
-            Range: (<input type="text" id="cubesMin" name="cubesMin" ngModel />
-            to <input type="text" id="cubesMax" name="cubesMax" ngModel />)^3
-          </p>
-        </div>
-        <hr />
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="powers"
-                name="powers"
-                ngModel
-              />Powers</label
-            >
+          <hr />
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="powers"
+                  name="powers"
+                  ngModel
+                />Powers</label
+              >
+            </div>
+          </div>
+          <hr />
+          <div class="col">
+            <p>Duration:</p>
+            <select class="form-control" id="duration" name="duration" ngModel>
+              <option>30 seconds</option>
+              <option>60 seconds</option>
+              <option>120 seconds</option>
+              <option>300 seconds</option>
+              <option>600 seconds</option>
+            </select>
+          </div>
+          <hr />
+          <div class="col">
+            <button class="btn btn-primary" type="submit">Start</button>
           </div>
         </div>
-        <hr />
-        <div class="col">
-          <p>Duration:</p>
-          <select class="form-control" id="duration" name="duration" ngModel>
-            <option>30 seconds</option>
-            <option>60 seconds</option>
-            <option>120 seconds</option>
-            <option>300 seconds</option>
-            <option>600 seconds</option>
-          </select>
-        </div>
-        <hr />
-        <div class="col">
-          <button class="btn btn-primary" type="submit">Start</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

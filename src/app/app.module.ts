@@ -28,7 +28,12 @@ import {
   AngularFirestore,
   AngularFirestoreModule
 } from '@angular/fire/firestore';
-import { MatButtonModule, MatButton, MatMenuModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatButton,
+  MatMenuModule,
+  MatTabsModule
+} from '@angular/material';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -83,7 +88,8 @@ const routes: Routes = [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

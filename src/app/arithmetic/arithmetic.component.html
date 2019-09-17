@@ -10,125 +10,138 @@
   </p>
 </div>
 <hr />
-<div class="row">
-  <div class="col-xs-12">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-      <div class="row">
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="addition"
-                name="addition"
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="row">
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="addition"
+                  name="addition"
+                  ngModel
+                />Addition</label
+              >
+            </div>
+            <p>
+              Range: (<input
+                type="text"
+                id="addition1Min"
+                name="addition1Min"
                 ngModel
-              />Addition</label
-            >
-          </div>
-          <p>
-            Range: (<input
-              type="text"
-              id="addition1Min"
-              name="addition1Min"
-              ngModel
-            />
-            to
-            <input type="text" id="addition1Max" name="addition1Max" ngModel />)
-            + (<input
-              type="text"
-              id="addition2Min"
-              name="addition2Min"
-              ngModel
-            />
-            to
-            <input type="text" id="addition2Max" name="addition2Max" ngModel />)
-          </p>
-        </div>
-        <hr />
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="subtraction"
-                name="subtraction"
+              />
+              to
+              <input
+                type="text"
+                id="addition1Max"
+                name="addition1Max"
                 ngModel
-              />Subtraction</label
-            >
-          </div>
-          <p>Addition problems in reverse.</p>
-        </div>
-        <hr />
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="multiplication"
-                name="multiplication"
+              />) + (<input
+                type="text"
+                id="addition2Min"
+                name="addition2Min"
                 ngModel
-              />Multiplication</label
-            >
-          </div>
-          <p>
-            Range: (<input
-              type="text"
-              id="multiplication1Min"
-              name="multiplication1Min"
-              ngModel
-            />
-            to
-            <input
-              type="text"
-              id="multiplication1Max"
-              name="multiplication1Max"
-              ngModel
-            />) x (<input
-              type="text"
-              id="multiplication2Min"
-              name="multiplication2Min"
-              ngModel
-            />
-            to
-            <input
-              type="text"
-              id="multiplication2Max"
-              name="multiplication2Max"
-              ngModel
-            />)
-          </p>
-        </div>
-        <hr />
-        <div class="col form-group">
-          <div class="checkbox">
-            <label
-              ><input
-                type="checkbox"
-                id="division"
-                name="division"
+              />
+              to
+              <input
+                type="text"
+                id="addition2Max"
+                name="addition2Max"
                 ngModel
-              />Division</label
-            >
+              />)
+            </p>
           </div>
-          <p>Multiplication problems but in reverse.</p>
+          <hr />
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="subtraction"
+                  name="subtraction"
+                  ngModel
+                />Subtraction</label
+              >
+            </div>
+            <p>Addition problems in reverse.</p>
+          </div>
+          <hr />
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="multiplication"
+                  name="multiplication"
+                  ngModel
+                />Multiplication</label
+              >
+            </div>
+            <p>
+              Range: (<input
+                type="text"
+                id="multiplication1Min"
+                name="multiplication1Min"
+                ngModel
+              />
+              to
+              <input
+                type="text"
+                id="multiplication1Max"
+                name="multiplication1Max"
+                ngModel
+              />) x (<input
+                type="text"
+                id="multiplication2Min"
+                name="multiplication2Min"
+                ngModel
+              />
+              to
+              <input
+                type="text"
+                id="multiplication2Max"
+                name="multiplication2Max"
+                ngModel
+              />)
+            </p>
+          </div>
+          <hr />
+          <div class="col form-group">
+            <div class="checkbox">
+              <label
+                ><input
+                  type="checkbox"
+                  id="division"
+                  name="division"
+                  ngModel
+                />Division</label
+              >
+            </div>
+            <p>Multiplication problems but in reverse.</p>
+          </div>
+          <hr />
+          <div class="col">
+            <p>Duration:</p>
+            <select class="form-control" id="duration" name="duration" ngModel>
+              <option>5 seconds</option>
+              <option>30 seconds</option>
+              <option>60 seconds</option>
+              <option>120 seconds</option>
+              <option>300 seconds</option>
+              <option>600 seconds</option>
+            </select>
+          </div>
+          <hr />
+          <div class="col">
+            <button mat-raised-button color="primary" type="submit">
+              Start
+            </button>
+          </div>
         </div>
-        <hr />
-        <div class="col">
-          <p>Duration:</p>
-          <select class="form-control" id="duration" name="duration" ngModel>
-            <option>5 seconds</option>
-            <option>30 seconds</option>
-            <option>60 seconds</option>
-            <option>120 seconds</option>
-            <option>300 seconds</option>
-            <option>600 seconds</option>
-          </select>
-        </div>
-        <hr />
-        <div class="col">
-          <button mat-raised-button color="primary" type="submit">Start</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
