@@ -21,6 +21,9 @@
             "aot": false,
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              {
+                "input": "src/app-theme.scss"
+              },
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],

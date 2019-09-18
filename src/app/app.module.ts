@@ -32,7 +32,10 @@ import {
   MatButtonModule,
   MatButton,
   MatMenuModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatFormFieldControl
 } from '@angular/material';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -89,7 +92,9 @@ const routes: Routes = [
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCheckboxModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
