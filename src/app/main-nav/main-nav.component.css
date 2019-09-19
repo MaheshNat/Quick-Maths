@@ -24,6 +24,10 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.testclass {
+  float: right;
+}
 /* 
 @media (min-width: 768px) {
   .sidenav {

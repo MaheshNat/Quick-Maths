@@ -13,13 +13,13 @@ import { TestComponent } from './test/test.component';
 import { TestEndComponent } from './test-end/test-end.component';
 import { AuthComponent } from './auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeaderboardComponent } from './leaderboard/leaderboard/leaderboard.component';
+import { LeaderboardPipe } from './leaderboard/leaderboard.pipe';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
@@ -67,9 +67,9 @@ const routes: Routes = [
     TestComponent,
     TestEndComponent,
     AuthComponent,
-    LoadingSpinnerComponent,
     LeaderboardComponent,
-    MainNavComponent
+    MainNavComponent,
+    LeaderboardPipe
   ],
   imports: [
     BrowserModule,

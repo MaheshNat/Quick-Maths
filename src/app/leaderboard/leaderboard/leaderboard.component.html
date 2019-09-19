@@ -1,14 +1,6 @@
 <div class="page-header text-center">
   <h1>
-    {{
-      test === 'arithmetic'
-        ? 'Arithmetic'
-        : test === 'powers'
-        ? 'Powers'
-        : test === 'number-sense'
-        ? 'Number Sense'
-        : ''
-    }}
+    {{ test | leaderboard }}
     Test Leaderboard
   </h1>
 </div>
@@ -16,15 +8,7 @@
 <div class="jumbotron text-center">
   <p>
     Below is the Quick Maths leaderboard for the
-    {{
-      test === 'arithmetic'
-        ? 'Arithmetic'
-        : test === 'powers'
-        ? 'Powers'
-        : test === 'number-sense'
-        ? 'Number Sense'
-        : ''
-    }}
+    {{ test | leaderboard }}
     test. these are the 100 users with the highest scores.
   </p>
   <p>
@@ -46,15 +30,7 @@
     <thead>
       <tr>
         <td colspan="4">
-          {{
-            test === 'arithmetic'
-              ? 'Arithmetic'
-              : test === 'powers'
-              ? 'Powers'
-              : test === 'number-sense'
-              ? 'Number Sense'
-              : ''
-          }}
+          {{ test | leaderboard }}
           Leaderboard
         </td>
       </tr>

@@ -102,25 +102,12 @@ export class TestEndComponent implements OnInit, OnDestroy {
   }
 
   onTryAgain() {
-    this.questionService.score = 0;
-    this.questionService.questionsCorrectlyAnswered = 0;
-    this.questionService.questionsMissed = 0;
-    this.questionService.question = this.questionService.generateQuestion();
-    let duration = +this.questionService.form.duration.split(' ')[0];
-    this.questionService.secondsLeft = duration;
-    this.questionService.intervalSubscription = interval(1000).subscribe(() => {
-      this.questionService.secondsLeft--;
-    });
-    this.questionService.intervalTimer = setTimeout(() => {
-      this.router.navigate(['/test-end']);
-    }, duration * 1000);
+    this.questionService.startTest();
     this.router.navigate(['/test']);
   }
 
   onChangeSettings() {
-    this.questionService.score = 0;
-    this.questionService.questionsCorrectlyAnswered = 0;
-    this.questionService.questionsMissed = 0;
+    this.questionService.reset();
     switch (this.questionService.test) {
       case 'arithmetic':
         this.router.navigate(['/arithmetic']);

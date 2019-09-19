@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Event } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject, Subscription, interval, BehaviorSubject } from 'rxjs';
 import { NSSet } from './shared/set.model';
@@ -22,7 +22,32 @@ export class QuestionService implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  onSubmitForm(form: NgForm, test: string) {
+  reset() {
+    this.score = 0;
+    this.questionsCorrectlyAnswered = 0;
+    this.questionsMissed = 0;
+  }
+
+  async startTest() {
+    this.reset();
+    await new Promise((resolve, reject) => {
+      this.question = this.generateQuestion();
+      console.log(
+        `question: ${this.question.question}, answer: ${this.question.answer}`
+      );
+      resolve();
+    });
+    let duration = +this.form.duration.split(' ')[0];
+    this.secondsLeft = duration;
+    this.intervalSubscription = interval(1000).subscribe(() => {
+      this.secondsLeft--;
+    });
+    this.intervalTimer = setTimeout(() => {
+      this.router.navigate(['/test-end']);
+    }, duration * 1000);
+  }
+
+  async onSubmitForm(form: NgForm, test: string) {
     this.form = form.value;
     this.test = test;
     if (this.test === 'arithmetic') {
@@ -35,23 +60,20 @@ export class QuestionService implements OnInit, OnDestroy {
       if (this.form.cubes) this.choices.push('cubes');
       if (this.form.powers) this.choices.push('powers');
     } else {
-      console.log('reached here');
       if (this.form.section1) this.choices.push('section1');
       if (this.form.section2) this.choices.push('section2');
       if (this.form.section3) this.choices.push('section3');
       if (this.form.section4) this.choices.push('section4');
       if (this.form.section5) this.choices.push('section5');
     }
-    this.question = this.generateQuestion();
-    let duration = +this.form.duration.split(' ')[0];
-    this.secondsLeft = duration;
-    this.intervalSubscription = interval(1000).subscribe(() => {
-      this.secondsLeft--;
-    });
-    this.intervalTimer = setTimeout(() => {
-      this.router.navigate(['/test-end']);
-    }, duration * 1000);
-    console.log(this.form);
+    await this.startTest();
+    console.log('submitted form, test started.');
+    console.log(
+      'question: ' +
+        this.question.question +
+        ', answer: ' +
+        this.question.answer
+    );
   }
 
   randomInteger(min: number, max: number) {
@@ -294,8 +316,10 @@ export class QuestionService implements OnInit, OnDestroy {
       case 14:
         let a1 = this.randomInteger(3, 10);
         let b1;
-        do b1 = this.randomInteger(3, 10);
-        while (a1 === b1);
+        do {
+          console.log('in a while loop right now.');
+          b1 = this.randomInteger(3, 10);
+        } while (a1 === b1);
         return {
           question: `${a1}/${b1} + ${b1}/${a1} = (mixed number)`,
           answer: new Fraction(false, Math.pow(a1 - b1, 2), a1 * b1, 2)
@@ -502,6 +526,7 @@ export class QuestionService implements OnInit, OnDestroy {
     ];
     for (let i = 0; i <= decimal.length; i++) {
       while (num % decimal[i] < num) {
+        console.log('in a while loop right now.');
         result += roman[i];
         num -= decimal[i];
       }
@@ -524,6 +549,7 @@ export class QuestionService implements OnInit, OnDestroy {
   primeDivisors(num: number): number[] {
     let primeFactors: number[] = [];
     while (num % 2 === 0) {
+      console.log('in a while loop right now.');
       primeFactors.push(2);
       num /= 2;
     }
@@ -531,6 +557,7 @@ export class QuestionService implements OnInit, OnDestroy {
     let sqrtNum = Math.sqrt(num);
     for (var i = 3; i <= sqrtNum; i++)
       while (num % i === 0) {
+        console.log('in a while loop right now.');
         primeFactors.push(i);
         num /= i;
       }
@@ -672,8 +699,10 @@ export class QuestionService implements OnInit, OnDestroy {
       case 17:
         num = this.randomInteger(20, 500);
         num1 = this.randomInteger(2, 9);
-        do num2 = this.randomInteger(2, 9);
-        while (num1 === num2);
+        do {
+          console.log('in a while loop right now.');
+          num2 = this.randomInteger(2, 9);
+        } while (num1 === num2);
         return {
           question: `${this.convertBase(
             num,
@@ -859,24 +888,30 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: (num * (num + 1)) / 2
         };
       case 37:
-        do num = this.randomInteger(10, 30);
-        while (num % 2 === 0);
+        do {
+          console.log('in a while loop right now.');
+          num = this.randomInteger(10, 30);
+        } while (num % 2 === 0);
         return {
           question: `1 + 3 + 5 + ... + ${num} = `,
           answer: Math.pow((num + 1) / 2, 2)
         };
       case 38:
-        do num = this.randomInteger(10, 30);
-        while (num % 2 === 1);
+        do {
+          console.log('in a while loop right now.');
+          num = this.randomInteger(10, 30);
+        } while (num % 2 === 1);
         return {
           question: `2 + 4 + 6 + ... + ${num}`,
           answer: (num / 2) * (num / 2 + 1)
         };
       case 39:
         num = this.randomInteger(1, 9);
-        num1 = this.randomInteger(1, 9);
-        do num2 = this.randomInteger(1, 9);
-        while (num2 <= num1);
+        num1 = this.randomInteger(1, 8);
+        do {
+          console.log('in a while loop right now.');
+          num2 = this.randomInteger(1, 9);
+        } while (num2 <= num1);
         return {
           question: `${num}(1 + ${new Fraction(false, num1, num2)
             .reduce()
@@ -1049,8 +1084,10 @@ export class QuestionService implements OnInit, OnDestroy {
         num = this.randomInteger(1, 20);
         num1 = this.randomInteger(1, 20);
         num2 = this.randomInteger(1, 20);
-        do num3 = this.randomInteger(1, 20);
-        while (num1 === num3);
+        do {
+          console.log('in a while loop right now.');
+          num3 = this.randomInteger(1, 20);
+        } while (num1 === num3);
         return {
           question: `The slope between the points (${num}, ${num1}) and (${num2}, ${num3}) is`,
           answer: new Fraction(false, num1 - num3, num - num2)
@@ -1061,8 +1098,10 @@ export class QuestionService implements OnInit, OnDestroy {
         num = this.randomInteger(1, 20);
         num1 = this.randomInteger(1, 20);
         num2 = this.randomInteger(1, 20);
-        do num3 = this.randomInteger(1, 20);
-        while (num1 === num3);
+        do {
+          console.log('in a while loop right now.');
+          num3 = this.randomInteger(1, 20);
+        } while (num1 === num3);
         return {
           question: `The x coordinate of the midpoint between (${num}, ${num1}) and (${num2}, ${num3}) is`,
           answer: new Fraction(false, num + num2, 2).reduce().toString()
@@ -1071,8 +1110,10 @@ export class QuestionService implements OnInit, OnDestroy {
         num = this.randomInteger(1, 20);
         num1 = this.randomInteger(1, 20);
         num2 = this.randomInteger(1, 20);
-        do num3 = this.randomInteger(1, 20);
-        while (num1 === num3);
+        do {
+          console.log('in a while loop right now.');
+          num3 = this.randomInteger(1, 20);
+        } while (num1 === num3);
         return {
           question: `The y coordinate of the midpoint between (${num}, ${num1}) and (${num2}, ${num3}) is`,
           answer: new Fraction(false, num1 + num3, 2).reduce().toString()
@@ -1094,24 +1135,30 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: (sides * (sides - 3)) / 2
         };
       case 15:
-        do sides = this.randomInteger(0, shapes.length - 1) + 3;
-        while (sides === 4);
+        do {
+          console.log('in a while loop right now.');
+          sides = this.randomInteger(0, shapes.length - 1) + 3;
+        } while (sides === 4);
         shape = shapes[sides - 3];
         return {
           question: `A regular ${shape} has an exterior angle of`,
           answer: 360 / sides
         };
       case 16:
-        do sides = this.randomInteger(0, shapes.length - 1) + 3;
-        while (sides === 4);
+        do {
+          console.log('in a while loop right now.');
+          sides = this.randomInteger(0, shapes.length - 1) + 3;
+        } while (sides === 7);
         shape = shapes[sides - 3];
         return {
           question: `A regular ${shape} has an interior angle of`,
           answer: (180 * (sides - 2)) / sides
         };
       case 17:
-        do sides = this.randomInteger(0, shapes.length - 1) + 3;
-        while (sides === 4);
+        do {
+          console.log('in a while loop right now.');
+          sides = this.randomInteger(0, shapes.length - 1) + 3;
+        } while (sides === 4);
         shape = shapes[sides - 3];
         return {
           question: ` The sum of the interior angles of a regular ${shape} is`,
@@ -1190,24 +1237,30 @@ export class QuestionService implements OnInit, OnDestroy {
           answer: (num * (num + 1)) / 2
         };
       case 26:
-        do num = this.randomInteger(10, 30);
-        while (num % 2 === 0);
+        do {
+          console.log('in a while loop right now.');
+          num = this.randomInteger(10, 30);
+        } while (num % 2 === 0);
         return {
           question: `1 + 3 + 5 + ... + ${num} = `,
           answer: Math.pow((num + 1) / 2, 2)
         };
       case 27:
-        do num = this.randomInteger(10, 30);
-        while (num % 2 === 1);
+        do {
+          console.log('in a while loop right now.');
+          num = this.randomInteger(10, 30);
+        } while (num % 2 === 1);
         return {
           question: `2 + 4 + 6 + ... + ${num}`,
           answer: (num / 2) * (num / 2 + 1)
         };
       case 28:
         num = this.randomInteger(1, 9);
-        num1 = this.randomInteger(1, 9);
-        do num2 = this.randomInteger(1, 9);
-        while (num2 <= num1);
+        num1 = this.randomInteger(1, 8);
+        do {
+          console.log('in a while loop right now.');
+          num2 = this.randomInteger(1, 9);
+        } while (num2 <= num1);
         return {
           question: `${num}(1 + ${new Fraction(false, num1, num2)
             .reduce()
@@ -1264,8 +1317,10 @@ export class QuestionService implements OnInit, OnDestroy {
       //combinations and permutations
       case 33:
         num = this.randomInteger(3, 9);
-        do num1 = this.randomInteger(2, 9);
-        while (num1 >= num);
+        do {
+          console.log('in a while loop right now.');
+          num1 = this.randomInteger(2, 9);
+        } while (num1 >= num);
         return {
           question: `${num}C${num1} = `,
           answer:
@@ -1274,8 +1329,10 @@ export class QuestionService implements OnInit, OnDestroy {
         };
       case 34:
         num = this.randomInteger(3, 6);
-        do num1 = this.randomInteger(2, 6);
-        while (num1 >= num);
+        do {
+          console.log('in a while loop right now.');
+          num1 = this.randomInteger(2, 6);
+        } while (num1 >= num);
         return {
           question: `${num}P${num1} = `,
           answer: this.factorial(num) / this.factorial(num - num1)
@@ -1283,17 +1340,21 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //probabiliy / odds
       case 35:
-        num = this.randomInteger(2, 20);
-        do num1 = this.randomInteger(2, 20);
-        while (num1 <= num);
+        num = this.randomInteger(2, 19);
+        do {
+          console.log('in a while loop right now.');
+          num1 = this.randomInteger(2, 20);
+        } while (num1 <= num);
         return {
           question: `The probabiliy of winning is ${num}/${num1}. The odds of losing are (fraction)`,
           answer: new Fraction(false, num1 - num, num).reduce().toString()
         };
       case 36:
-        num = this.randomInteger(2, 20);
-        do num1 = this.randomInteger(2, 20);
-        while (num1 <= num);
+        num = this.randomInteger(2, 19);
+        do {
+          console.log('in a while loop right now.');
+          num1 = this.randomInteger(2, 20);
+        } while (num1 <= num);
         return {
           question: `The odds of losing are ${num}/${num1}. The probabiliy of winning is (fraction)`,
           answer: new Fraction(false, num1, num + num1).reduce().toString()
@@ -1301,13 +1362,15 @@ export class QuestionService implements OnInit, OnDestroy {
 
       //binomial expansion theorem
       case 37:
-        num = this.randomInteger(2, 9);
-        do num1 = this.randomInteger(2, 9);
-        while (num + num1 < 2 || num + num1 > 9);
+        num = this.randomInteger(-3, 11);
+        do {
+          console.log('in a while loop right now.');
+          num1 = this.randomInteger(-3, 11);
+        } while (num + num1 < 2 || num + num1 > 9);
         console.log(`num: ${num}, num1: ${num1}, index: ${num + num1 - 3}`);
         num2 = this.randomInteger(
-          powers[num + num1 - 3].min,
-          powers[num + num1 - 3].max
+          powers[num + num1 - 2].min,
+          powers[num + num1 - 2].max
         );
         return {
           question: `The sum of the coefficients in the expansion of (${num}x + ${num1}y) ^ ${num2} is`,
@@ -1348,8 +1411,10 @@ export class QuestionService implements OnInit, OnDestroy {
         num = this.randomInteger(2, 10);
         num1 = this.randomInteger(2, 10);
         num2 = this.randomInteger(2, 10);
-        do num3 = this.randomInteger(2, 10);
-        while (num1 === num3);
+        do {
+          console.log('in a while loop right now.');
+          num3 = this.randomInteger(2, 10);
+        } while (num1 === num3);
         let num4 = this.randomInteger(2, 10);
         return {
           question: `If ${num}x + ${num1}y = ${num2} and ${num}x + ${num3}y = ${num4}, then y = `,
@@ -1406,6 +1471,9 @@ export class QuestionService implements OnInit, OnDestroy {
 
   questionAnswered() {
     this.question = this.generateQuestion();
+    console.log(
+      `question: ${this.question.question}, answer: ${this.question.answer}`
+    );
     this.score += 1;
   }
 
