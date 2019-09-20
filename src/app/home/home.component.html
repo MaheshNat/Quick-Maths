@@ -5,16 +5,72 @@
 </div>
 
 <div class="container-fluid">
-  <div
-    class="row mat-elevation-z7"
-    style="background-color: white; padding: 30px; border-radius: 7px; margin-left: 10px; margin-right: 10px;"
-  >
-    <div class="col-xl-" style="text-align: left;">
+  <div class="row mat-elevation-z7 card">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 card-header">
       <h2>Get Started With Quick Maths</h2>
-      <p class="lead" style="font-size: 18; margin-top: 25px;">
+      <p class="card-lead">
         Take mental math to the next level with arithmetic, powers, and number
         sense tests designed for all levels of expertise.
       </p>
+    </div>
+    <div
+      class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+      style="text-align: center;"
+    >
+      <h2>Arithmetic Test</h2>
+      <img src="assets/arithmetic-card.png" class="card-image" />
+      <p class="card-lead" style="font-size: 17px;">
+        Solve as many <strong>arithmetic</strong> problems as you can in 2
+        minutes.
+      </p>
+      <button
+        routerLink="/arithmetic"
+        mat-raised-button
+        color="accent"
+        style="margin-top: 20px;"
+      >
+        Take An Arithmetic Test
+      </button>
+    </div>
+    <div
+      class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+      style="text-align: center;"
+    >
+      <h2>Powers Test</h2>
+      <img src="assets/powers-card.png" class="card-image" />
+      <p class="card-lead" style="font-size: 17px;">
+        Solve as many
+        <strong>squares, cubes, and miscellaneous powers</strong> problems as
+        you can in 2 minutes.
+      </p>
+      <button
+        routerLink="/powers"
+        mat-raised-button
+        color="accent"
+        style="margin-top: 20px;"
+      >
+        Take A Powers Test
+      </button>
+    </div>
+
+    <div
+      class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+      style="text-align: center;"
+    >
+      <h2>Number Sense Test</h2>
+      <img src="assets/number-sense-card.png" class="card-image" />
+      <p class="card-lead" style="font-size: 17px;">
+        Answer 80 problems ranging from
+        <strong>simple arithmetic to calculus</strong> in 10 minutes.
+      </p>
+      <button
+        routerLink="/number-sense"
+        mat-raised-button
+        color="accent"
+        style="margin-top: 20px;"
+      >
+        Take A Number Sense Test
+      </button>
     </div>
     <!-- <div class="col-xs-12 col-sm-6 col-lg-4">
       <mat-card class="mat-elevation-z7">
