@@ -6,7 +6,7 @@ import { QuestionService } from '../question.service';
 @Component({
   selector: 'app-number-sense',
   templateUrl: './number-sense.component.html',
-  styleUrls: ['./number-sense.component.css']
+  styleUrls: ['../tests.component.css']
 })
 export class NumberSenseComponent implements OnInit {
   @ViewChild('f', { static: true }) numberSenseForm: NgForm;

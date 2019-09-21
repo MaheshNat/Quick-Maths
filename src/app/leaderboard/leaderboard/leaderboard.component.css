@@ -1,0 +1,41 @@
+.jumbotron {
+  margin: 20px 100px;
+}
+
+.table {
+  /* max-width: 1690px; */
+  border-radius: 7px;
+}
+
+.table thead {
+  border-radius: 7px;
+  background-color: #5bbafc;
+  color: white;
+}
+
+.table th {
+  background-color: #4a4a4a;
+  color: white;
+}
+
+.margin {
+  margin: 20px 100px;
+}
+
+@media (max-width: 1000px) {
+  .margin {
+    margin: 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  .margin {
+    margin: 25px;
+  }
+}
+
+@media (max-width: 500px) {
+  .margin {
+    margin: 12px;
+  }
+}

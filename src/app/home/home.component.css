@@ -1,7 +1,8 @@
 #home {
   padding-top: 230px;
   padding-bottom: 230px;
-  background: url(src/assets/background.png) no-repeat center center fixed;
+  background: url(src/assets/landing-background.png) no-repeat center center
+    fixed;
   filter: contrast(110%);
   display: table;
   height: 100%;

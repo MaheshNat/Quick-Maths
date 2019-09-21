@@ -7,7 +7,12 @@
   </div>
 
   <ng-template #login>
-    <button mat-raised-button color="primary" (click)="auth.googleSignin()">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="auth.googleSignin()"
+      style="margin-bottom: 50px;"
+    >
       <span class="glyphicon glyphicon-user"></span> Sign In With Google
     </button>
   </ng-template>

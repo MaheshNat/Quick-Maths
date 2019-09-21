@@ -6,7 +6,7 @@ import { QuestionService } from '../question.service';
 @Component({
   selector: 'app-powers',
   templateUrl: './powers.component.html',
-  styleUrls: ['./powers.component.css']
+  styleUrls: ['../tests.component.css']
 })
 export class PowersComponent implements OnInit {
   @ViewChild('f', { static: true }) powersForm: NgForm;

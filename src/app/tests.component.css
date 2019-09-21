@@ -12,6 +12,19 @@
   width: 200px;
 }
 
+.test-left {
+  margin: 50px 0px;
+}
+
+.test-left p {
+  font-size: 30px;
+}
+
+.test-left div {
+  background-color: white;
+  border-radius: 7px;
+}
+
 @media (max-width: 1000px) {
   .test input {
     width: 80px;
@@ -23,7 +36,7 @@
 
 @media (max-width: 700px) {
   .test-left p {
-    font-size: 70px;
+    font-size: 20px;
   }
 }
 
@@ -43,17 +56,4 @@
   .test select {
     width: 60px;
   }
-}
-
-.test-left {
-  margin: 50px 0px;
-}
-
-.test-left p {
-  font-size: 30px;
-}
-
-.test-left div {
-  background-color: white;
-  border-radius: 7px;
 }

@@ -1,18 +1,26 @@
-<div class="text-center">
-  <h2>Powers Test</h2>
-  <p>
-    The powers test is a fast-paced speed drill where you are given 2 minutes to
-    solve as many powers problems as you can.
-  </p>
-</div>
-<hr />
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-12">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div class="row">
-          <div class="col form-group">
-            <div class="checkbox">
+  <div class="text-center">
+    <h1>Powers Test</h1>
+  </div>
+  <hr />
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 test-left">
+        <p class="lead">
+          The powers test is a fast-paced speed drill where you are given 2
+          minutes to solve as many powers problems as you can.
+          <span class="text-danger"
+            ><strong>
+              Only scores submitted with default settings will count towards the
+              Arithmetic Test Leaderboard.</strong
+            ></span
+          >
+        </p>
+      </div>
+      <div class="col-lg-6 mat-elevation-z5 test">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div class=" form-group">
+            <div class="checkbox" style="margin-top: 20px;">
               <label
                 ><input
                   type="checkbox"
@@ -34,7 +42,7 @@
             </p>
           </div>
           <hr />
-          <div class="col form-group">
+          <div class="form-group">
             <div class="checkbox">
               <label
                 ><input
@@ -56,7 +64,7 @@
             </p>
           </div>
           <hr />
-          <div class="col form-group">
+          <div class="form-group">
             <div class="checkbox">
               <label
                 ><input
@@ -69,29 +77,27 @@
             </div>
           </div>
           <hr />
-          <div class="col">
-            <p>Duration:</p>
-            <select class="form-control" id="duration" name="duration" ngModel>
-              <option>30 seconds</option>
-              <option>60 seconds</option>
-              <option>120 seconds</option>
-              <option>300 seconds</option>
-              <option>600 seconds</option>
-            </select>
-          </div>
+          <p>Duration:</p>
+          <select class="form-control" id="duration" name="duration" ngModel>
+            <option>5 seconds</option>
+            <option>30 seconds</option>
+            <option>60 seconds</option>
+            <option>120 seconds</option>
+            <option>300 seconds</option>
+            <option>600 seconds</option>
+          </select>
           <hr />
-          <div class="col">
-            <button
-              mat-raised-button
-              color="primary"
-              class="btn btn-primary"
-              type="submit"
-            >
-              Start
-            </button>
-          </div>
-        </div>
-      </form>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            style="margin-bottom: 20px;"
+          >
+            Start Test
+          </button>
+          <!-- </div> -->
+        </form>
+      </div>
     </div>
   </div>
 </div>

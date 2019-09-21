@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-arithmetic',
   templateUrl: './arithmetic.component.html',
-  styleUrls: ['./arithmetic.component.css']
+  styleUrls: ['../tests.component.css']
 })
 export class ArithmeticComponent implements OnInit {
   @ViewChild('f', { static: true }) arithmeticForm: NgForm;

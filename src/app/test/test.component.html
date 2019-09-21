@@ -1,20 +1,22 @@
-<div class="row">
-  <div class="col-lg-10">
-    <h3>Seconds Left: {{ questionService.secondsLeft }}</h3>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-10">
+      <h3>Seconds Left: {{ questionService.secondsLeft }}</h3>
+    </div>
+    <div class="col-lg-2">
+      <h3>Score: {{ questionService.score }}</h3>
+    </div>
   </div>
-  <div class="col-lg-2">
-    <h3>Score: {{ questionService.score }}</h3>
-  </div>
-</div>
-<div style="margin-top: 200px"></div>
-<div class="jumbotron">
-  <div class="text-center">
-    <form #f>
-      <label
-        ><font size="6">{{ questionService.question.question }} </font
-        ><input #answer (keyup)="answerChanged(f, $event)"
-      /></label>
-    </form>
-    <p>{{ questionService.question.answer }}</p>
+  <div style="margin-top: 200px"></div>
+  <div class="jumbotron mat-elevation-z5">
+    <div class="text-center">
+      <form #f>
+        <label
+          ><font size="6">{{ questionService.question.question }} </font
+          ><input #answer (keyup)="answerChanged(f, $event)"
+        /></label>
+      </form>
+      <p>{{ questionService.question.answer }}</p>
+    </div>
   </div>
 </div>
