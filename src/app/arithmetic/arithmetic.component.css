@@ -1,0 +1,59 @@
+.test {
+  margin: 50px 0px;
+  background-color: white;
+  border-radius: 7px;
+}
+
+.test input {
+  width: 100px;
+}
+
+.test select {
+  width: 200px;
+}
+
+@media (max-width: 1000px) {
+  .test input {
+    width: 80px;
+  }
+  .test select {
+    width: 160px;
+  }
+}
+
+@media (max-width: 700px) {
+  .test-left p {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 500px) {
+  .test input {
+    width: 50px;
+  }
+  .test select {
+    width: 100px;
+  }
+}
+
+@media (max-width: 350px) {
+  .test input {
+    width: 30px;
+  }
+  .test select {
+    width: 60px;
+  }
+}
+
+.test-left {
+  margin: 50px 0px;
+}
+
+.test-left p {
+  font-size: 30px;
+}
+
+.test-left div {
+  background-color: white;
+  border-radius: 7px;
+}

@@ -104,7 +104,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <mat-card class="mat-elevation-z5">
           <mat-card-title
-            ><span class="glyphicon glyphicon-ok"></span> Customizable
+            ><span class="glyphicon glyphicon-list"></span> Customizable
             Tests</mat-card-title
           >
           <hr />
@@ -124,7 +124,7 @@
       <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
         <mat-card class="mat-elevation-z5">
           <mat-card-title
-            ><span class="glyphicon glyphicon-ok"></span> Fast-Paced Test
+            ><span class="glyphicon glyphicon-time"></span> Fast-Paced Test
             Taking</mat-card-title
           >
           <hr />
@@ -150,10 +150,6 @@
       Leaderboards
     </h2>
     <h2 class="lead">A Better Way To Track Your Progress</h2>
-    <p style="font-size: 18px;">
-      Leaderboards allow users to stay track their progress over time and
-      <strong>stay motivated to learn.</strong>
-    </p>
     <mat-menu #leaderboardMenu="matMenu">
       <button mat-menu-item routerLink="/leaderboard/arithmetic">
         Arithmetic Leaderboard
@@ -170,8 +166,26 @@
       mat-raised-button
       color="accent"
       [matMenuTriggerFor]="leaderboardMenu"
+      style="margin-bottom: 60px;"
     >
       View Leaderboards
     </button>
+    <div class="row justify-content-center">
+      <div class="col-md-3 col-xs-4"></div>
+      <div class="col-md-3 col-xs-4">
+        <img
+          src="assets/leaderboard-icon.png"
+          class="img-responsive leaderboard-img"
+        />
+        <div class="col-xs-4"></div>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <p class="leaderboard-p lead">
+          Leaderboards allow users to track their progress over time and
+          <strong>stay motivated to learn.</strong>
+        </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
   </div>
 </div>

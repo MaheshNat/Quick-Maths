@@ -2,6 +2,7 @@
   padding-top: 230px;
   padding-bottom: 230px;
   background: url(src/assets/background.png) no-repeat center center fixed;
+  filter: contrast(110%);
   display: table;
   height: 100%;
   width: 100%;
@@ -112,4 +113,12 @@
 .card-header {
   text-align: left;
   font-size: 20px;
+}
+
+.leaderboard-img {
+  max-height: 300px;
+}
+
+.leaderboard-p {
+  font-size: 30px;
 }
