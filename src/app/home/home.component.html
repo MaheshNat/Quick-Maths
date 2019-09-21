@@ -1,11 +1,12 @@
-<div class="landing-text">
-  <h1>QUICK MATHS</h1>
-  <h3>Number sense made easy.</h3>
-  <button mat-raised-button color="accent">Get Started</button>
+<div id="home">
+  <div class="landing-text">
+    <h1>QUICK MATHS</h1>
+    <h3>Number sense, made easy.</h3>
+  </div>
 </div>
 
 <div class="container-fluid">
-  <div class="row mat-elevation-z7 card">
+  <div class="row justify-content-center  mat-elevation-z7 card">
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 card-header">
       <h2>Get Started With Quick Maths</h2>
       <p class="card-lead">
@@ -72,84 +73,105 @@
         Take A Number Sense Test
       </button>
     </div>
-    <!-- <div class="col-xs-12 col-sm-6 col-lg-4">
-      <mat-card class="mat-elevation-z7">
-        <mat-card-title>Arithmetic Test</mat-card-title>
-        <mat-card-content
-          ><p class="lead">
-            A fast-paced speed drill where you are given 2 minutes to solve as
-            many arithmetic problems as you can.
-          </p></mat-card-content
-        >
-        <mat-card-actions>
-          <button routerLink="/arithmetic" mat-raised-button color="primary">
-            Take an Arithmetic Test
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-    <div class="col-xs-12 col-sm-6 col-lg-4">
-      <mat-card class="mat-elevation-z7">
-        <mat-card-title>Powers Test</mat-card-title>
-        <mat-card-content
-          ><p class="lead">
-            A fast-paced speed drill where you are given 2 minutes to solve as
-            many squares, cubes, and miscellaneous powers problems as you can.
-          </p></mat-card-content
-        >
-        <mat-card-actions>
-          <button routerLink="/powers" mat-raised-button color="primary">
-            Take a Powers Test
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-    <div class="col-xs-12 col-sm-6 col-lg-4">
-      <mat-card class="mat-elevation-z7">
-        <mat-card-title>Number Sense Test</mat-card-title>
-        <mat-card-content
-          ><p class="lead">
-            An 80 question, 10 minute test in the style of the UIL Number Sense
-            Test comprised of various mental math problems ranging from simple
-            arithmetic to basic calculus.
-          </p></mat-card-content
-        >
-        <mat-card-actions>
-          <button routerLink="/number-sense" mat-raised-button color="primary">
-            Take a Number Sense Test
-          </button>
-        </mat-card-actions>
-      </mat-card> -->
-    <!-- </div> -->
   </div>
-</div>
+  <div class="text-center">
+    <h2 style="color: #7a7a7a">
+      Tests Are Made As <strong>Accurate</strong> and <strong>Useful</strong> as
+      Possible
+    </h2>
+    <div class="row cards">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <mat-card class="mat-elevation-z5">
+          <mat-card-title
+            ><span class="glyphicon glyphicon-ok"></span> Over 500+ Question
+            Types</mat-card-title
+          >
+          <hr />
+          <mat-card-content
+            ><p class="lead" style="text-align: left;">
+              The Number Sense Test is made using randomly selected questions
+              from over 500 different types which frequently appear on the UIL
+              Number Sense Test, enabling users to practice their number sense
+              skills in
+              <strong>
+                an environment which simulates that of taking the real UIL
+                Number Sense Test.</strong
+              >
+            </p></mat-card-content
+          >
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <mat-card class="mat-elevation-z5">
+          <mat-card-title
+            ><span class="glyphicon glyphicon-ok"></span> Customizable
+            Tests</mat-card-title
+          >
+          <hr />
+          <mat-card-content
+            ><p class="lead">
+              By allowing users to set constraints on the types of questions and
+              duration they will take a test, users can practice the types of
+              questions they struggle with. This customization provides for a
+              learning experience
+              <strong>
+                suited for individuals of all levels of expertise.</strong
+              >
+            </p></mat-card-content
+          >
+        </mat-card>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <mat-card class="mat-elevation-z5">
+          <mat-card-title
+            ><span class="glyphicon glyphicon-ok"></span> Fast-Paced Test
+            Taking</mat-card-title
+          >
+          <hr />
+          <mat-card-content
+            ><p class="lead">
+              When users take either an arithmetic or powers test, as soon as
+              the user enters in the right answer, the next question is
+              displayed. Traditionally, the user has to press enter after
+              solving a problem in order to validate it, but this approach
+              allows for
+              <strong
+                >fast-paced test taking to keep up with the pace of the user's
+                brain.</strong
+              >
+            </p></mat-card-content
+          >
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <h2 style="color: #7a7a7a">
+      Leaderboards
+    </h2>
+    <h2 class="lead">A Better Way To Track Your Progress</h2>
+    <p style="font-size: 18px;">
+      Leaderboards allow users to stay track their progress over time and
+      <strong>stay motivated to learn.</strong>
+    </p>
+    <mat-menu #leaderboardMenu="matMenu">
+      <button mat-menu-item routerLink="/leaderboard/arithmetic">
+        Arithmetic Leaderboard
+      </button>
+      <button mat-menu-item routerLink="/leaderboard/powers">
+        Powers Leaderboard
+      </button>
+      <button mat-menu-item routerLink="/leaderboard/number-sense">
+        Number Sense Leaderboard
+      </button>
+    </mat-menu>
 
-<div class="jumbotron" style="margin-top: 15px;">
-  <h2>Welcome To Quick Maths</h2>
-  <p>
-    Quick Maths enables you to strengthen your mental math skills, be it through
-    the Arithmetic Test, Powers Test, or Number Sense Test.
-  </p>
-
-  <h3>Arithmetic Test</h3>
-  <p>
-    The arithmetic test consists of
-    <b>addition, subtraction, multiplication, and division problems.</b>
-  </p>
-
-  <h3>Powers Test</h3>
-  <p>
-    The powers test consists of <b>squares, cubes, and powers</b> that
-    frequently show up on UIL Number Sense tests.
-  </p>
-
-  <h3>Number Sense Test</h3>
-  <p>
-    The number sense test is a
-    <b>dynamically generated UIL Number Sense test</b>, pulling topics from
-    around 150 different types of questions which frequently appear on the real
-    tests
-  </p>
+    <button
+      mat-raised-button
+      color="accent"
+      [matMenuTriggerFor]="leaderboardMenu"
+    >
+      View Leaderboards
+    </button>
+  </div>
 </div>
