@@ -4,6 +4,7 @@ import { LeaderboardService } from '../leaderboard.service';
 import { map } from 'rxjs/operators';
 import { AngularFireList } from '@angular/fire/database';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-leaderboard',

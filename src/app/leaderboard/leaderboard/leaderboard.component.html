@@ -23,7 +23,13 @@
     </ng-template>
   </div>
 
-  <div class="text-center margin">
+  <mat-spinner
+    *ngIf="!leaderboard"
+    class="center"
+    style="margin: 0 auto"
+  ></mat-spinner>
+
+  <div class="text-center margin" *ngIf="leaderboard">
     <table
       class="lead table table-bordered table-striped table-hover mat-elevation-z5"
     >

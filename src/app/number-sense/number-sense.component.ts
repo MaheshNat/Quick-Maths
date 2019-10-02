@@ -22,8 +22,6 @@ export class NumberSenseComponent implements OnInit {
         section1: true,
         section2: true,
         section3: true,
-        section4: true,
-        section5: true,
         duration: '600 seconds'
       });
     });

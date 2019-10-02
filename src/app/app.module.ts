@@ -25,7 +25,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import {
-  AngularFirestore,
   AngularFirestoreModule
 } from '@angular/fire/firestore';
 import {
@@ -37,7 +36,9 @@ import {
   MatFormFieldModule,
   MatFormFieldControl,
   MatCardModule,
-  MatChipsModule
+  MatChipsModule,
+  MatSpinner,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -98,7 +99,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatFormFieldModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
