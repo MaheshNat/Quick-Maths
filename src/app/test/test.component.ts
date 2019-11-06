@@ -19,7 +19,7 @@ export class TestComponent implements OnInit, OnDestroy {
   @ViewChild('answer', { static: true }) answerInput: ElementRef;
   constructor(
     private route: ActivatedRoute,
-    private questionService: QuestionService
+    public questionService: QuestionService
   ) {}
 
   ngOnInit() {

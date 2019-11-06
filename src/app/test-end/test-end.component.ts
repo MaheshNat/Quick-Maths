@@ -18,7 +18,7 @@ export class TestEndComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private questionService: QuestionService,
+    public questionService: QuestionService,
     private router: Router,
     private ldbService: LeaderboardService,
     private authService: AuthService

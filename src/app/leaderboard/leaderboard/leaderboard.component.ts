@@ -18,7 +18,7 @@ export class LeaderboardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private ldbService: LeaderboardService,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
