@@ -8,7 +8,7 @@ Quick Maths is a web application using angular 8 that allows users to test their
 * **Powers (Squares From 10 - 40 and Exponents From 2 - 20 of Varying Difficulty)**
 * **Number Sense (Dynamically Generated Number Sense Questions)**
 
-Quick Maths was inspired by [Zetamac](https://www.arithmetic.zetamac.com), a website that allows users to practice their arithmetic skills.
+Quick Maths was inspired by [Zetamac](https://www.arithmetic.zetamac.com), a website that allows users to practice their arithmetic skills, and expands upon the style and mission of the website by providing additional tests as well as a leaderboard.
 
 This project aims to expand the vision of zetamac, allowing users to also practice powers / exponents as well as UIL number sense through dynamicallly generated questions of varying degree. Furthermore, Quick Maths allows users to practice number sense tests online without having to print out previous years' tests.
 
